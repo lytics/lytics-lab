@@ -1,0 +1,34 @@
+{
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/nx-cloud",
+      "options": {
+        "cacheableOperations": [
+          "build",
+          "test",
+          "test-storybook",
+          "test-storyshots",
+          "typecheck"
+        ],
+        "accessToken": "${NX_ACCESS_TOKEN}"
+      }
+    }
+  },
+  "targetDefaults": {
+    "build": {
+      "outputs": ["{projectRoot}/dist"]
+    },
+    "cover": {
+      "outputs": ["{projectRoot}/coverage"]
+    }
+  },
+  "targetDependencies": {
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ]
+  },
+  "defaultBase": "main"
+}

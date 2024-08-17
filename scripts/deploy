@@ -1,0 +1,2 @@
+#!/bin/bash -e
+echo "Nothing to see here"

@@ -1,0 +1,10 @@
+{
+  "@lytics/experience-editor": "ExperienceEditor",
+  "@mui/material": "MaterialUI",
+  "mousetrap": "Mousetrap",
+  "notistack": "notistack",
+  "prop-types": "PropTypes",
+  "react": "React",
+  "react-dom": "ReactDOM",
+  "react-i18next": "ReactI18next"
+}

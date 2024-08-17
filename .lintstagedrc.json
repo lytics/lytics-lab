@@ -1,0 +1,4 @@
+{
+  "{packages,entrypoints,web-components,viz-service}/**/*.{js,jsx,ts,tsx,json,css,scss,md}": "prettier --write",
+  "{packages,entrypoints,web-components,viz-service}/**/*.+(js,jsx,ts,tsx,json,css,scss,md)": "eslint"
+}

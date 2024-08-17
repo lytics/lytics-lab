@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Creates symlinks for all the packages in the monorepo to the common .env files because
+# because vite doesn't load .env files from outside the project root.
+# This script should be run from the root of the monorepo.
+
+# Define the list of environments
+environments=(".env.local" ".env.development" ".env.production" ".env.staging")
+
+# Loop through each environment
+for environment in "${environments[@]}"; do
+  # Iterate over matching workspaces using find and log messages
+  find packages/* -maxdepth 0 -type d | while read -r workspace; do
+    echo "Creating symlink for ${environment} in ${workspace}"
+    # Replace the echo command with ln for creating symlinks when ready
+    ln -sf "../../${environment}" "${workspace}/${environment}"
+  done
+done
+
+echo "Symlink creation completed."

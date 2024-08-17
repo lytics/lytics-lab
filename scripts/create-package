@@ -1,0 +1,103 @@
+#!/bin/bash -e
+set -Eeuo pipefail
+tmp=/tmp/lytics-ui-create-package
+rm="rm -fr"
+global_name=""
+entrypoint=false
+verbose=false
+function finish {
+  exit_code=$?
+  $rm $tmp
+  if [[ ${exit_code} -ne 0 ]];
+  then
+    $rm $package_dir
+  fi
+}
+trap finish EXIT
+
+package_pattern='{{PACKAGE_NAME}}'
+fx=node_modules/.bin/fx
+prettier="node_modules/.bin/prettier --parser=json"
+
+while getopts n:g:ev flag
+do
+  case "${flag}" in
+    n) package_name=${OPTARG};;
+    g) global_name=${OPTARG};;
+    e) entrypoint=true;;
+    v) verbose=true
+  esac
+done
+
+if [ "${verbose}" = true ];
+then
+  set -x
+fi
+
+if [ -z "${package_name}" ];
+then
+  echo 'missing -n' >&2
+  exit 1
+fi
+
+if [ -z "${global_name}" ];
+then
+  global_name=Lytics$(perl -e "print ucfirst('${package_name}')")
+fi
+
+blueprint_dir=blueprints/package
+package_dir=packages/${package_name}
+
+if [ -f "${package_dir}" ];
+then
+  echo "package name ${package_name} must be unique" >&2
+  exit 1
+fi
+
+mkdir -p $tmp
+
+cp -r ${blueprint_dir} ${package_dir}
+
+# replace occurences of the package_name pattern
+for f in $(find ${package_dir} -name "*${package_pattern}*");
+do
+  dest="$(echo "$f" | perl -pe s/${package_pattern}/${package_name}/)"
+  mv "${f}" "${dest}";
+done
+
+# remove .hbs suffix from filenames
+for f in $(find ${package_dir} -name "*.hbs");
+do
+  dest="$(echo "$f" | perl -pe s/\.hbs$//)"
+  mv "${f}" "${dest}";
+done
+
+# interpolate the package name
+perl -i -pe  "s/${package_pattern}/${package_name}/" $(find ${package_dir} -type f);
+
+if [ "${entrypoint}" = false ];
+then
+  # register global name
+  cat globals.json | ($fx "Object.fromEntries(
+    Object.entries({
+      ...this,
+      '@lytics/${package_name}': '${global_name}'
+    }).sort(([a], [b]) => a.localeCompare(b))
+  )") | $prettier> $tmp/globals.json
+  mv $tmp/globals.json globals.json
+
+  # register path in tsconfig
+  cat tsconfig.json | ($fx "{
+    ...this,
+    compilerOptions: {
+      ...this.compilerOptions,
+      paths: Object.fromEntries(
+        Object.entries({
+          ...this.compilerOptions.paths,
+          '@lytics/${package_name}': ['./packages/${package_name}/src/index.ts'],
+        }).sort(([a], [b]) => a.localeCompare(b))
+      ),
+    },
+  }") | $prettier> $tmp/tsconfig.json
+  mv $tmp/tsconfig.json tsconfig.json
+fi

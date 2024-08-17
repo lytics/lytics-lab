@@ -1,0 +1,17 @@
+**/bin
+**/coverage
+**/dist
+**/node_modules
+**/patches
+**/vendor
+.github
+yarn-error.log
+.eslintignore
+.eslint.json
+.yaml
+.git
+.eslintcache
+packages/segast/src/filterql.js
+**/*.hbs
+**/public
+**/static

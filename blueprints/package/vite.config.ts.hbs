@@ -1,0 +1,31 @@
+import { resolve } from "path";
+import { defineConfig } from "vite";
+import globals from "../../globals.json";
+import packageJson from "./package.json";
+import { alias } from "../../config/entrypoint/alias";
+
+export const reactExternals = ["react/jsx-runtime", "prop-types", "react-is"];
+
+export default defineConfig({
+  build: {
+    lib: {
+      entry: resolve(__dirname, "src/index.ts"),
+      name: globals[packageJson.name as keyof typeof globals],
+      fileName: "{{PACKAGE_NAME}}",
+      formats: ["es", "cjs", "umd"],
+    },
+    sourcemap: true,
+    rollupOptions: {
+      external: [
+        ...reactExternals,
+        ...Object.keys(packageJson.dependencies),
+        ...Object.keys(packageJson.peerDependencies),
+      ],
+      output: {
+        globals,
+        generatedCode: { symbols: false },
+      },
+    },
+  },
+  resolve: { alias },
+});

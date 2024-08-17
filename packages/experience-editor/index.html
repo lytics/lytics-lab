@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    <%= title %>
+  </title>
+  <script type="module" src="main.tsx"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 25px;
+      background-color: #999
+    }
+
+    .wiz-wrap {
+      padding: 25px;
+      background-color: #FFF;
+    }
+
+    .form-wrap {
+      margin-top: 25px;
+      padding: 25px;
+      background-color: #FFF;
+    }
+
+    .form-wrap .row {
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+      padding-bottom: 20px;
+    }
+
+    .form-wrap .row div {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      flex-grow: 1;
+    }
+
+    .form-wrap label {
+      font-weight: bold;
+    }
+
+    .form-wrap input {
+      padding: 5px 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      min-height: 25px;
+
+    }
+
+    .form-wrap textarea {
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      min-width: 400px;
+      min-height: 800px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wiz-wrap">
+    <lytics-widgetwiz accountid="<%= accountID %>" accesstoken="<%= accessToken %>"
+      pathforaconfig="<%= pathforaConfig %>" availableaudiences="<%= availableAudiences %>"
+      availablecollections="<%= availableCollections %>" titlefield="edit-title" descriptionfield="edit-description"
+      statusfield="edit-status" configurationfield="edit-configuration"></lytics-widgetwiz>
+  </div>
+
+  <div class="form-wrap">
+    <form>
+      <div class="row">
+        <div>
+          <label for="edit-title">Title:</label>
+          <input type="text" id="edit-title" name="title" placeholder="Title">
+        </div>
+
+        <div>
+          <label for="edit-description">Description:</label>
+          <input type="text" id="edit-description" name="description" placeholder="Description">
+        </div>
+
+        <div>
+          <label for="edit-status">Status:</label>
+          <input type="text" id="edit-status" name="status" placeholder="Status">
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label for="edit-configuration">Configuration:</label>
+          <textarea type="text" id="edit-configuration" name="configuration" placeholder="Configuration"></textarea>
+        </div>
+      </div>
+    </form>
+  </div>
+</body>
+
+</html>
