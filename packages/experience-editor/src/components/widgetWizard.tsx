@@ -83,6 +83,7 @@ import { CallbackFnEditor } from "./form/callbackFn";
 import { FormBuilder } from "./formBuilder";
 
 import { removeEmptyObjects, getValueByDotNotation } from "../utility/objects";
+import { Visibility } from "@mui/icons-material";
 
 interface WidgetWizardProps {
   accountid: string;
@@ -266,7 +267,7 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
 
   useEffect(() => {
     const editConfig = document.getElementById(
-      "edit-configuration"
+      "edit-configuration",
     ) as HTMLInputElement;
     if (editConfig) {
       editConfig.value = renderConfiguration();
@@ -398,22 +399,22 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
 
   const checkSourceLink = () => {
     const titleElement = document.getElementById(
-      titlefield
+      titlefield,
     ) as HTMLInputElement;
     titleElement.value = formValues[widgetTitle.id] as string;
 
     const descriptionElement = document.getElementById(
-      descriptionfield
+      descriptionfield,
     ) as HTMLInputElement;
     descriptionElement.value = formValues[widgetDescription.id] as string;
 
     const statusElement = document.getElementById(
-      statusfield
+      statusfield,
     ) as HTMLInputElement;
     statusElement.value = formValues[widgetStatus.id] as string;
 
     const configElement = document.getElementById(
-      configurationfield
+      configurationfield,
     ) as HTMLInputElement;
     configElement.value = renderConfiguration();
   };
@@ -452,7 +453,7 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
     valuesToCheck.forEach((v) => {
       // see if there is a dependency where the value matches the value set for the field
       const dependencyMatch = field.dependencies?.find(
-        (dependency) => dependency.value === v
+        (dependency) => dependency.value === v,
       );
 
       // if there is a match, show the fields
@@ -779,12 +780,30 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
                     <Tab label="Layout" id={"basic-tab-2"} />
                     <Tab label="Branding" id={"basic-tab-3"} />
                     <Tab label="Display Rules" id={"basic-tab-4"} />
-                    {formValues[type.id] === "form" && (
-                      <Tab label="Form Fields" id={"basic-tab-5"} />
-                    )}
-                    {formValues[type.id] === "recommendation" && (
-                      <Tab label="Recommendation" id={"basic-tab-6"} />
-                    )}
+                    <Tab
+                      label="Form Fields"
+                      id={"basic-tab-5"}
+                      disabled={formValues[type.id] !== "form"}
+                      sx={{
+                        "&.Mui-disabled": {
+                          color: "gray",
+                          cursor: "not-allowed",
+                          opacity: 0.2,
+                        },
+                      }}
+                    />
+                    <Tab
+                      label="Recommendation"
+                      id={"basic-tab-6"}
+                      disabled={formValues[type.id] !== "recommendation"}
+                      sx={{
+                        "&.Mui-disabled": {
+                          color: "gray",
+                          cursor: "not-allowed",
+                          opacity: 0.2,
+                        },
+                      }}
+                    />
                   </Tabs>
 
                   {/* Messaging Tab */}

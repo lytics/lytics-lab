@@ -1,5 +1,6 @@
 {
   "@lytics/experience-editor": "ExperienceEditor",
+  "@lytics/recommendation-block": "RecommendationBlock",
   "@mui/material": "MaterialUI",
   "mousetrap": "Mousetrap",
   "notistack": "notistack",

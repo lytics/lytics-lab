@@ -1,12 +1,12 @@
 {
-  "name": "@lytics/lytics-public-workspaces",
-  "description": "Lytics Public Workspaces",
+  "name": "@lytics/lytics-lab",
+  "description": "Lytics Lab is the public workspace for open source projects.",
   "respository": {
     "type": "git",
-    "url": "https://github.com/lytics/lytics-public.git"
+    "url": "https://github.com/lytics/lytics-lab.git"
   },
   "bugs": {
-    "url": "https://github.com/lytics/lytics-public/issues"
+    "url": "https://github.com/lytics/lytics-lab/issues"
   },
   "workspaces": [
     "packages/*"

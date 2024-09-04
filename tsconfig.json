@@ -1,7 +1,5 @@
 {
-  "include": [
-    "./packages",
-  ],
+  "include": ["./packages"],
   "exclude": ["./node_modules"],
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
@@ -41,7 +39,12 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "paths": {
-      "@lytics/experience-editor": ["./packages/api/experience-editor/src/main.tsx"],
+      "@lytics/experience-editor": [
+        "./packages/api/experience-editor/src/main.tsx"
+      ],
+      "@lytics/recommendation-block": [
+        "./packages/api/recommendation-block/src/index.ts"
+      ]
     },
     "resolveJsonModule": true,
     "skipLibCheck": true,

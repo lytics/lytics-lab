@@ -4,7 +4,7 @@ export class PathforaHandler {
   constructor(
     loadPathforaLibrary = false,
     loadLyticsTag = false,
-    accountId = ""
+    accountId = "",
   ) {
     if (loadLyticsTag) {
       console.log("Adding JSTAG shim to the page");
@@ -42,13 +42,58 @@ export class PathforaHandler {
 
   loadJSTAGLibrary(accountid: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      const script = document.createElement("script");
-      script.textContent = `!function(){"use strict";var o=window.jstag||(window.jstag={}),r=[];function n(e){o[e]=function(){for(var n=arguments.length,t=new Array(n),i=0;i<n;i++)t[i]=arguments[i];r.push([e,t])}}n("send"),n("mock"),n("identify"),n("pageView"),n("unblock"),n("getid"),n("setid"),n("loadEntity"),n("getEntity"),n("on"),n("once"),n("call"),o.loadScript=function(n,t,i){var e=document.createElement("script");e.async=!0,e.src=n,e.onload=t,e.onerror=i;var o=document.getElementsByTagName("script")[0],r=o&&o.parentNode||document.head||document.body,c=o||r.lastChild;return null!=c?r.insertBefore(e,c):r.appendChild(e),this},o.init=function n(t){return this.config=t,this.loadScript(t.src,function(){if(o.init===n)throw new Error("Load error!");o.init(o.config),function(){for(var n=0;n<r.length;n++){var t=r[n][0],i=r[n][1];o[t].apply(o,i)}r=void 0}()}),this}}();
-      jstag.init({
-        src: 'https://c.lytics.io/api/tag/${accountid}/latest.min.js',
-        stream: 'drupal-widget-test'
-      });`;
-      document.body.appendChild(script);
+      const jstagShim = {
+        config: {
+          cid: [accountid],
+          cookie: "test-seerid",
+        },
+        getid: (callback: (id: string) => void) => {
+          callback("test-lytics-uid");
+        },
+        send: (stream: string, payload: any, callback: () => void) => {
+          console.log("(MOCK) Lytics JStag send request made.", stream);
+        },
+        getEntity: (callback: (entity: any) => void) => {
+          const mockEntity = {
+            data: {
+              user: {
+                _split: "18",
+                _split2: "62",
+                _uid: "ec78a574-f275-4d59-9b80-1925a16239a1",
+                _uids: ["ec78a574-f275-4d59-9b80-1925a16239a1"],
+                score_consistency: "100",
+                score_frequency: "65",
+                score_intensity: "41",
+                score_maturity: "99",
+                score_momentum: "34",
+                score_propensity: "6",
+                score_quantity: "73",
+                score_recency: "96",
+                score_volatility: "100",
+                segments: ["anonymous_profiles", "smt_active", "all"],
+                visit_city: "Denver",
+                visit_country: "US",
+                visit_region: "CO",
+              },
+            },
+          };
+
+          if (!callback) {
+            return mockEntity;
+          }
+
+          callback(mockEntity);
+        },
+      };
+
+      var expires = new Date(new Date().valueOf() + 1000 * 60 * 60 * 1);
+      document.cookie =
+        "test-seerid=test-lytics-uid; expires=" +
+        expires.toUTCString() +
+        "; path=/; SameSite=Lax";
+
+      (window as any).jstag = (window as any).jstag || jstagShim;
+      console.log("JSTAG initialized");
       resolve();
     });
   }
@@ -116,21 +161,21 @@ export class PathforaHandler {
     // confirmAction.callback
     if (widget?.config?.confirmAction?.callback) {
       widget.config.confirmAction.callback = createFunction(
-        widget.config.confirmAction.callback
+        widget.config.confirmAction.callback,
       );
     }
 
     // cancelAction.callback
     if (widget?.config?.cancelAction?.callback) {
       widget.config.cancelAction.callback = createFunction(
-        widget.config.cancelAction.callback
+        widget.config.cancelAction.callback,
       );
     }
 
     // closeAction.callback
     if (widget?.config?.closeAction?.callback) {
       widget.config.closeAction.callback = createFunction(
-        widget.config.closeAction.callback
+        widget.config.closeAction.callback,
       );
     }
 
