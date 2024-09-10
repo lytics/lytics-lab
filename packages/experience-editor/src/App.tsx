@@ -108,7 +108,11 @@ const CoreWidgetWizard: React.FC<CoreWidgetWizardProps> = ({
   configurationfield,
 }) => {
   // url decode the pathfora config
-  pathforaconfig = atob(pathforaconfig);
+  try {
+    pathforaconfig = atob(pathforaconfig);
+  } catch (e) {
+    pathforaconfig = "";
+  }
 
   console.log("testing");
 
