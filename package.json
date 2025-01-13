@@ -16,7 +16,7 @@
     "create-entrypoint": "bash -e ./scripts/create-package -e",
     "create-package": "bash -e ./scripts/create-package",
     "sync-env": "bash -e ./scripts/sync-env",
-    "lint": "eslint {packages,entrypoints,web-components,viz-service}/*/src -c .eslintrc.js --ext js,jsx,ts,tsx --fix && yarn eslint {packages,entrypoints,web-components,viz-service}/*/spec -c .eslintrc.js --ext js,jsx,ts,tsx --fix",
+    "lint": "run eslint {packages,entrypoints,web-components,viz-service}/*/src -c .eslintrc.js --ext js,jsx,ts,tsx --fix && yarn eslint {packages,entrypoints,web-components,viz-service}/*/spec -c .eslintrc.js --ext js,jsx,ts,tsx --fix",
     "format": "run prettier -w {packages,entrypoints,web-components,viz-service}/*/src/**/*.{ts,js,tsx} && yarn run prettier -w {packages,entrypoints,web-components,viz-service}/*/spec/*.{ts,tsx}",
     "test": "nx run-many --target=test",
     "clean": "rm -r {packages,entrypoints,web-components,viz-service}/*/{dist,build}",
@@ -31,8 +31,8 @@
     "test-storybook": "NODE_OPTIONS=--openssl-legacy-provider storybook dev --smoke-test",
     "test-storyshots": "TZ=utc vitest run ./storybook/storyshots.test.ts  -c .storybook/vite.config.ts",
     "prepare": "husky install",
-    "pre-commit": "lint-staged",
-    "chromatic": "chromatic"
+    "pre-commit": "run lint-staged",
+    "chromatic": "run chromatic"
   },
   "devDependencies": {
     "@codemirror/lang-javascript": "^6.2.2",
