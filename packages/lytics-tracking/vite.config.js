@@ -1,23 +1,23 @@
-import { defineConfig } from "vite";
+import { defineConfig } from "vitest/config";
 import { loadEnv } from "vite";
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd());
   return {
     build: {
+      lib: {
+        fileName: "lytics-tracking",
+        entry: "src/index.ts",
+        name: "MyLib",
+      },
       outDir: "dist",
       rollupOptions: {
-        input: "main.tsx",
-        output: {
-          entryFileNames: "lytics-pathfora-editor.js",
-          chunkFileNames: "lytics-pathfora-editor-[hash].js",
-          assetFileNames: "lytics-pathfora-editor-[hash].[ext]",
-        },
+        input: "index2.html",
       },
     },
-    server: {
-      open: true,
-      host: "local.getlytics.com",
+    test: {
+      globals: true,
+      environment: "happy-dom",
     },
   };
 });

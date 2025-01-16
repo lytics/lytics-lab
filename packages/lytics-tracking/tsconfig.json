@@ -1,13 +1,14 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "module": "ESNext",
     "strict": false,
     "esModuleInterop": true,
     "allowJs": true,
     "outDir": "./dist",
     "moduleResolution": "node",
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "types": ["vitest/globals"],
   },
-  "include": ["src/**/*"]
+  "include": ["src"]
 }

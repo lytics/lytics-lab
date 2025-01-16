@@ -1,6 +1,6 @@
 type Config = Record<string, any>;
 
-interface IJSTag {
+export interface IJSTag {
   init(config: Config): () => void;
   pageView(): void;
   identify(): void;
@@ -29,25 +29,36 @@ customElements.define(
       return observedAttributes;
     }
 
+    observer: MutationObserver;
+
+    constructor() {
+      super();
+      this.observer = new MutationObserver(this.onChildrenAppended.bind(this));
+    }
+
     config: Config = {};
     // Called when the element is connected to the document's DOM
     connectedCallback() {
-      if (typeof jstag === "undefined") {
-        shim();
-      }
+      requestAnimationFrame(() => {
+        if (typeof jstag === "undefined") {
+          shim();
+        }
 
-      off = jstag.init(configFor(this));
+        const config = configFor(this);
 
-      const event = this.getAttribute("event");
-      if (event === "page" || event == "pageView" || event == null) {
-        jstag.pageView();
-      } else if (event === "identify") {
-        jstag.identify();
-      } else if (event === "send") {
-        jstag.send();
-      } else {
-        console.error("Invalid event", event);
-      }
+        off = jstag.init(config);
+
+        const event = this.getAttribute("event");
+        if (event === "page" || event == "pageView" || event == null) {
+          jstag.pageView();
+        } else if (event === "identify") {
+          jstag.identify();
+        } else if (event === "send") {
+          jstag.send();
+        } else {
+          console.error("Invalid event", event);
+        }
+      });
     }
 
     // Called when the element is disconnected from the document's DOM
@@ -55,11 +66,8 @@ customElements.define(
       off?.();
     }
 
-    // Called when one of the element's attributes is added, removed, or changed
-    attributeChangedCallback(name: string) {
-      if (observedAttributes.includes(name)) {
-        this.connectedCallback();
-      }
+    onChildrenAppended() {
+      this.connectedCallback();
     }
   },
 );
@@ -69,14 +77,17 @@ function configFor(el: Element) {
   const cid = el.getAttribute("cid");
   const pid = el.getAttribute("pid");
   if (!cid || !pid) {
-    console.error(
-      "Missing cid (lytics customer id) or pid (personalize project id)",
-    );
-    return { ...defaults, ...config };
+    if (!cid) {
+      console.error("Missing cid (lytics customer id)");
+      return { ...defaults, ...config, cid };
+    }
+    if (!pid) {
+      console.error("Missing pid (personalize project id)");
+    }
+    return { ...defaults, ...config, pid };
   }
   return {
     ...defaults,
-    ...config,
     src: `https://c.lytics.io/api/tag/${cid}/latest.min.js`,
     contentStack: {
       entityPush: {
@@ -84,30 +95,34 @@ function configFor(el: Element) {
         personalizeProjectId: pid,
       },
     },
+    lx: {
+      disabled: false,
+    },
+    ...config,
   };
 
   function parsedConfig() {
     // Prefer src attribute
-    if (el.hasAttribute("src")) {
+    if (el.hasAttribute("config")) {
       try {
-        return JSON.parse(el.getAttribute("src"));
+        return JSON.parse(el.getAttribute("config"));
       } catch (e) {
         console.error("Error parsing JSON", e);
       }
     }
     // Look for a script tag with JSON content inside
-    const src = el.querySelector("script");
-    if (!src) {
-      console.error("No config found");
+    const script = el.querySelector("script");
+
+    if (!script) {
       return {};
     }
-    const type = src.getAttribute("type");
+    const type = script.getAttribute("type");
     if (type !== "application/json" && type !== "text/json") {
       console.error("Invalid script type", type);
       return {};
     }
     try {
-      return JSON.parse(src.textContent || "");
+      return JSON.parse(script.textContent || "");
     } catch (e) {
       console.error("Error parsing JSON", e);
       return {};

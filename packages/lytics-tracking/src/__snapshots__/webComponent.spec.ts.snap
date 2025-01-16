@@ -1,0 +1,196 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`basic usage > should render 1`] = `
+[
+  [
+    "init",
+    [
+      {
+        "cid": null,
+        "pageAnalysis": {
+          "dataLayerPull": {
+            "disabled": true,
+          },
+        },
+      },
+    ],
+  ],
+  [
+    "pageView",
+    [],
+  ],
+]
+`;
+
+exports[`with a cid and pid > should render 1`] = `
+[
+  [
+    "init",
+    [
+      {
+        "contentStack": {
+          "entityPush": {
+            "disabled": false,
+            "personalizeProjectId": "567",
+          },
+        },
+        "lx": {
+          "disabled": false,
+        },
+        "pageAnalysis": {
+          "dataLayerPull": {
+            "disabled": true,
+          },
+        },
+        "src": "https://c.lytics.io/api/tag/123/latest.min.js",
+      },
+    ],
+  ],
+  [
+    "pageView",
+    [],
+  ],
+]
+`;
+
+exports[`with a config script tag > should render 1`] = `
+[
+  [
+    "init",
+    [
+      {
+        "amazon": {
+          "dsp": {
+            "disabled": true,
+          },
+        },
+        "cid": null,
+        "pageAnalysis": {
+          "dataLayerPull": {
+            "disabled": true,
+          },
+        },
+      },
+    ],
+  ],
+  [
+    "pageView",
+    [],
+  ],
+]
+`;
+
+exports[`with an event attribute > should render with identify 1`] = `
+[
+  [
+    "init",
+    [
+      {
+        "cid": null,
+        "pageAnalysis": {
+          "dataLayerPull": {
+            "disabled": true,
+          },
+        },
+      },
+    ],
+  ],
+  [
+    "identify",
+    [],
+  ],
+]
+`;
+
+exports[`with an event attribute > should render with page 1`] = `
+[
+  [
+    "init",
+    [
+      {
+        "cid": null,
+        "pageAnalysis": {
+          "dataLayerPull": {
+            "disabled": true,
+          },
+        },
+      },
+    ],
+  ],
+  [
+    "pageView",
+    [],
+  ],
+]
+`;
+
+exports[`with an event attribute > should render with pageView 1`] = `
+[
+  [
+    "init",
+    [
+      {
+        "cid": null,
+        "pageAnalysis": {
+          "dataLayerPull": {
+            "disabled": true,
+          },
+        },
+      },
+    ],
+  ],
+  [
+    "pageView",
+    [],
+  ],
+]
+`;
+
+exports[`with an event attribute > should render with send 1`] = `
+[
+  [
+    "init",
+    [
+      {
+        "cid": null,
+        "pageAnalysis": {
+          "dataLayerPull": {
+            "disabled": true,
+          },
+        },
+      },
+    ],
+  ],
+  [
+    "send",
+    [],
+  ],
+]
+`;
+
+exports[`with config attribute > should render 1`] = `
+[
+  [
+    "init",
+    [
+      {
+        "amazon": {
+          "dsp": {
+            "disabled": true,
+          },
+        },
+        "cid": null,
+        "pageAnalysis": {
+          "dataLayerPull": {
+            "disabled": true,
+          },
+        },
+      },
+    ],
+  ],
+  [
+    "pageView",
+    [],
+  ],
+]
+`;

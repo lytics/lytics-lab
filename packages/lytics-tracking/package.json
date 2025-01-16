@@ -1,13 +1,13 @@
 {
   "name": "@lytics/lytics-tracking",
   "version": "1.0.1",
-  "main": "dist/lytics-pathfora-editor.js",
+  "module": "dist/lytics-tracking.mjs",
+  "type": "module",
   "scripts": {
     "start": "vite",
     "build": "vite build",
     "test": "vitest run",
     "tdd": "vitest",
-    "cover": "vites --coverage",
     "typecheck": "tsc --noEmit --project tsconfig.json"
   },
   "dependencies": {
