@@ -17,6 +17,9 @@ const defaults = {
       disabled: true,
     },
   },
+  lx: {
+    disabled: false,
+  },
 };
 const observedAttributes = ["cid", "config", "event"];
 
@@ -79,12 +82,12 @@ function configFor(el: Element) {
   if (!cid || !pid) {
     if (!cid) {
       console.error("Missing cid (lytics customer id)");
-      return { ...defaults, ...config, cid };
+      return { ...defaults, ...config };
     }
     if (!pid) {
       console.error("Missing pid (personalize project id)");
     }
-    return { ...defaults, ...config, pid };
+    return { ...defaults, ...config };
   }
   return {
     ...defaults,
@@ -94,9 +97,6 @@ function configFor(el: Element) {
         disabled: false,
         personalizeProjectId: pid,
       },
-    },
-    lx: {
-      disabled: false,
     },
     ...config,
   };

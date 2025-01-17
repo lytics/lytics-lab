@@ -6,7 +6,9 @@ exports[`basic usage > should render 1`] = `
     "init",
     [
       {
-        "cid": null,
+        "lx": {
+          "disabled": false,
+        },
         "pageAnalysis": {
           "dataLayerPull": {
             "disabled": true,
@@ -64,7 +66,9 @@ exports[`with a config script tag > should render 1`] = `
             "disabled": true,
           },
         },
-        "cid": null,
+        "lx": {
+          "disabled": false,
+        },
         "pageAnalysis": {
           "dataLayerPull": {
             "disabled": true,
@@ -86,7 +90,9 @@ exports[`with an event attribute > should render with identify 1`] = `
     "init",
     [
       {
-        "cid": null,
+        "lx": {
+          "disabled": false,
+        },
         "pageAnalysis": {
           "dataLayerPull": {
             "disabled": true,
@@ -108,7 +114,9 @@ exports[`with an event attribute > should render with page 1`] = `
     "init",
     [
       {
-        "cid": null,
+        "lx": {
+          "disabled": false,
+        },
         "pageAnalysis": {
           "dataLayerPull": {
             "disabled": true,
@@ -130,7 +138,9 @@ exports[`with an event attribute > should render with pageView 1`] = `
     "init",
     [
       {
-        "cid": null,
+        "lx": {
+          "disabled": false,
+        },
         "pageAnalysis": {
           "dataLayerPull": {
             "disabled": true,
@@ -152,7 +162,9 @@ exports[`with an event attribute > should render with send 1`] = `
     "init",
     [
       {
-        "cid": null,
+        "lx": {
+          "disabled": false,
+        },
         "pageAnalysis": {
           "dataLayerPull": {
             "disabled": true,
@@ -179,7 +191,9 @@ exports[`with config attribute > should render 1`] = `
             "disabled": true,
           },
         },
-        "cid": null,
+        "lx": {
+          "disabled": false,
+        },
         "pageAnalysis": {
           "dataLayerPull": {
             "disabled": true,
