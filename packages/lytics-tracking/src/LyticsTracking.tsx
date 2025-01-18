@@ -1,21 +1,25 @@
 import { useMemo } from "react";
 import "./webComponent";
 
-interface LyticsTrackingProps {
+interface LyticsConfigProps {
   config: Record<string, any>;
 }
 
 declare module "react/jsx-runtime" {
   namespace JSX {
     interface IntrinsicElements {
-      "lytics-tracking": {
+      "lytics-config": {
         config: string;
+      };
+      "lytics-tracking": {
+        event: string;
+        payload: string;
       };
     }
   }
 }
 
-export const LyticsTracking = (props: LyticsTrackingProps) => {
+export const LyticsConfig = (props: LyticsConfigProps) => {
   const json = useMemo(() => JSON.stringify(props.config), [props.config]);
-  return <lytics-tracking config={json}></lytics-tracking>;
+  return <lytics-config config={json}></lytics-config>;
 };

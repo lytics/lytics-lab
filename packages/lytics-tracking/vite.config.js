@@ -11,9 +11,6 @@ export default defineConfig(({ mode }) => {
         name: "MyLib",
       },
       outDir: "dist",
-      rollupOptions: {
-        input: "index2.html",
-      },
     },
     test: {
       globals: true,

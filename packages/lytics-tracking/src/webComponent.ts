@@ -1,15 +1,7 @@
-type Config = Record<string, any>;
-
-export interface IJSTag {
-  init(config: Config): () => void;
-  pageView(): void;
-  identify(): void;
-  send(): void;
-}
+import { shim } from "./shim";
+import { Config, IJSTag } from "./types";
 
 declare var jstag: IJSTag;
-
-const asyncTag = `!function(){var n=window.jstag||(window.jstag={}),t=[];function i(i){n[i]=function(){for(var n=arguments.length,o=new Array(n),e=0;e<n;e++)o[e]=arguments[e];t.push([i,o])}}i("send"),i("mock"),i("identify"),i("pageView"),i("unblock"),i("getid"),i("setid"),i("loadEntity"),i("getEntity"),i("on"),i("once"),i("call"),n.loadScript=function(n,t,i){var o=document.createElement("script");o.async=!0,o.src=n,o.onload=t,o.onerror=i;var e=document.getElementsByTagName("script")[0],r=e&&e.parentNode||document.head||document.body,a=e||r.lastChild;return null!=a?r.insertBefore(o,a):r.appendChild(o),this},n.init=function i(o){return this.config=o,this.loadScript(o.src,(function(){if(n.init===i)throw new Error("Load error!");n.init(n.config),function(){for(var i=0;i<t.length;i++){var o=t[i][0],e=t[i][1];n[o].apply(n,e)}t=void 0}()})),this}}();`;
 
 const defaults = {
   pageAnalysis: {
@@ -21,117 +13,151 @@ const defaults = {
     disabled: false,
   },
 };
-const observedAttributes = ["cid", "config", "event"];
 
-let off: () => void | undefined;
+customElements.define(
+  "lytics-config",
+  (() => {
+    const cidAttr = "cid";
+    const pidAttr = "pid";
+    const jsonAttr = "json";
+    const observedAttributes = [cidAttr, pidAttr, jsonAttr];
+    let deinit: () => void | undefined;
+    return class extends HTMLElement {
+      static get observedAttributes() {
+        return observedAttributes;
+      }
+
+      config: Config = {};
+
+      // Called when the element is connected to the document's DOM
+      connectedCallback() {
+        shim();
+        requestAnimationFrame(() => {
+          deinit = jstag.init(configFor(this));
+        });
+      }
+
+      // Called when the element is disconnected from the document's DOM
+      disconnectedCallback() {
+        requestAnimationFrame(() => {
+          deinit?.();
+        });
+      }
+    };
+
+    function configFor(el: Element) {
+      const config = parsedConfig();
+      const cid = el.getAttribute(cidAttr);
+      const pid = el.getAttribute(pidAttr);
+      if (!cid || !pid) {
+        if (!cid) {
+          console.error("Missing cid (lytics customer id)");
+          return { ...defaults, ...config };
+        }
+        if (!pid) {
+          console.error("Missing pid (personalize project id)");
+        }
+        return { ...defaults, ...config };
+      }
+      return {
+        ...defaults,
+        src: `https://c.lytics.io/api/tag/${cid}/latest.min.js`,
+        contentStack: {
+          entityPush: {
+            disabled: false,
+            personalizeProjectId: pid,
+          },
+        },
+        ...config,
+      };
+
+      function parsedConfig() {
+        // Prefer src attribute
+        if (el.hasAttribute("json")) {
+          try {
+            return JSON.parse(el.getAttribute("json"));
+          } catch (e) {
+            console.error("Error parsing JSON", e);
+          }
+        }
+        // Look for a script tag with JSON content inside
+        const script = el.querySelector("script");
+        if (!script) {
+          return {};
+        }
+        const type = script.getAttribute("type");
+        if (type !== "application/json" && type !== "text/json") {
+          console.error("Invalid script type", type);
+          return {};
+        }
+        try {
+          return JSON.parse(script.textContent || "");
+        } catch (e) {
+          console.error("Error parsing JSON", e);
+          return {};
+        }
+      }
+    }
+  })(),
+);
 
 customElements.define(
   "lytics-tracking",
-  class extends HTMLElement {
-    static get observedAttributes() {
-      return observedAttributes;
-    }
+  (() => {
+    const eventAttr = "event";
+    const payloadAttr = "payload";
+    const observedAttributes = [eventAttr, payloadAttr];
+    return class extends HTMLElement {
+      static get observedAttributes() {
+        return observedAttributes;
+      }
 
-    observer: MutationObserver;
-
-    constructor() {
-      super();
-      this.observer = new MutationObserver(this.onChildrenAppended.bind(this));
-    }
-
-    config: Config = {};
-    // Called when the element is connected to the document's DOM
-    connectedCallback() {
-      requestAnimationFrame(() => {
-        if (typeof jstag === "undefined") {
-          shim();
-        }
-
-        const config = configFor(this);
-
-        off = jstag.init(config);
-
+      connectedCallback() {
+        shim();
         const event = this.getAttribute("event");
-        if (event === "page" || event == "pageView" || event == null) {
-          jstag.pageView();
-        } else if (event === "identify") {
-          jstag.identify();
-        } else if (event === "send") {
-          jstag.send();
-        } else {
-          console.error("Invalid event", event);
+        if (!event) {
+          console.error("Missing event attribute");
+          return;
         }
-      });
-    }
-
-    // Called when the element is disconnected from the document's DOM
-    disconnectedCallback() {
-      off?.();
-    }
-
-    onChildrenAppended() {
-      this.connectedCallback();
-    }
-  },
-);
-
-function configFor(el: Element) {
-  const config = parsedConfig();
-  const cid = el.getAttribute("cid");
-  const pid = el.getAttribute("pid");
-  if (!cid || !pid) {
-    if (!cid) {
-      console.error("Missing cid (lytics customer id)");
-      return { ...defaults, ...config };
-    }
-    if (!pid) {
-      console.error("Missing pid (personalize project id)");
-    }
-    return { ...defaults, ...config };
-  }
-  return {
-    ...defaults,
-    src: `https://c.lytics.io/api/tag/${cid}/latest.min.js`,
-    contentStack: {
-      entityPush: {
-        disabled: false,
-        personalizeProjectId: pid,
-      },
-    },
-    ...config,
-  };
-
-  function parsedConfig() {
-    // Prefer src attribute
-    if (el.hasAttribute("config")) {
+        requestAnimationFrame(() => {
+          const payload = payloadFor(this);
+          switch (event) {
+            case "send":
+              jstag.send(payload);
+              break;
+            case "identify":
+              jstag.identify(payload);
+              break;
+            case "page":
+            case "pageView":
+              jstag.pageView(payload);
+              break;
+            default:
+              console.error("Invalid event attribute", event);
+          }
+        });
+      }
+    };
+    function payloadFor(el: Element) {
+      const payload = el.getAttribute(payloadAttr);
+      if (!payload) {
+        const script = el.querySelector("script");
+        if (!script) {
+          return {};
+        }
+        const type = script.getAttribute("type");
+        if (type !== "application/json" && type !== "text/json") {
+          console.error("Invalid script type", type);
+          return {};
+        }
+        return JSON.parse(script.textContent || "{}");
+      }
       try {
-        return JSON.parse(el.getAttribute("config"));
+        return JSON.parse(payload);
       } catch (e) {
         console.error("Error parsing JSON", e);
+        return {};
       }
     }
-    // Look for a script tag with JSON content inside
-    const script = el.querySelector("script");
-
-    if (!script) {
-      return {};
-    }
-    const type = script.getAttribute("type");
-    if (type !== "application/json" && type !== "text/json") {
-      console.error("Invalid script type", type);
-      return {};
-    }
-    try {
-      return JSON.parse(script.textContent || "");
-    } catch (e) {
-      console.error("Error parsing JSON", e);
-      return {};
-    }
-  }
-}
-
-function shim() {
-  const script = document.createElement("script");
-  script.textContent = asyncTag;
-  document.head.appendChild(script);
-}
+  })(),
+);
