@@ -16,6 +16,7 @@ export default defineConfig(({ mode }) => {
             accessToken: env.VITE_ACCESS_TOKEN,
             pathforaConfig: env.VITE_PATHFORA_CFG,
             availableAudiences: env.VITE_AUDIENCES,
+            availableFlows: env.VITE_FLOWS,
             availableCollections: env.VITE_COLLECTIONS,
           },
         },

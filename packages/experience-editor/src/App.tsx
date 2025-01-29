@@ -89,6 +89,7 @@ type CoreWidgetWizardProps = {
   availableaudiences: string;
   availablecollections: string;
   availablefields: string;
+  availableflows: string;
   titlefield: string;
   descriptionfield: string;
   statusfield: string;
@@ -100,6 +101,7 @@ const CoreWidgetWizard: React.FC<CoreWidgetWizardProps> = ({
   accesstoken,
   pathforaconfig,
   availableaudiences,
+  availableflows,
   availablecollections,
   availablefields,
   titlefield,
@@ -125,6 +127,7 @@ const CoreWidgetWizard: React.FC<CoreWidgetWizardProps> = ({
           pathforaconfig={pathforaconfig || ""}
           availableaudiences={availableaudiences || ""}
           availablecollections={availablecollections || ""}
+          availableflows={availableflows || ""}
           availablefields={availablefields || ""}
           titlefield={titlefield || "edit-title"}
           descriptionfield={descriptionfield || "edit-description"}

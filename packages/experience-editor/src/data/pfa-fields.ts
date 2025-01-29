@@ -58,6 +58,8 @@ import { OnInit } from "./fields/callbacks/onInit";
 import { OnLoad } from "./fields/callbacks/onLoad";
 import { Audience, AudienceWithOptions } from "./fields/audience";
 import { FormElements } from "./fields/formElements";
+import { TargetMethod } from "./fields/targetMethod";
+import { AttributeRule } from "./fields/attributeRule";
 import {
   ContentCollection,
   ContentCollectionWithOptions,
@@ -68,6 +70,14 @@ import {
   ContentDisplayDescription,
   ContentDisplayDescriptionLimit,
 } from "./fields/recommend";
+import {
+  TargetFlow,
+  TargetFlowVersion,
+  TargetFlowWithOptions,
+  TargetFlowVersionWithOptions,
+  TargetFlowStep,
+  TargetFlowStepWithOptions,
+} from "./fields/targetFlow";
 
 export interface Field {
   id: string;
@@ -80,10 +90,22 @@ export interface Field {
   hidden: boolean;
   support?: string[];
   render: string;
+  fieldsToShow?: string[];
   dependencies?: {
     value: string | boolean;
     fieldsToShow: string[];
   }[];
+}
+
+export interface Flow {
+  label: string;
+  value: string;
+  versions: FlowVersion[];
+}
+
+export interface FlowVersion {
+  version: number;
+  steps: SelectOption[];
 }
 
 export interface SelectOption {
@@ -151,6 +173,14 @@ export const cancelAction = CancelAction;
 export const closeAction = CloseAction;
 export const onInit = OnInit;
 export const onLoad = OnLoad;
+export const targetMethod = TargetMethod;
+export const attributeRule = AttributeRule;
+export const targetFlow = TargetFlow;
+export const targetFlowVersion = TargetFlowVersion;
+export const targetFlowVersionWithOptions = TargetFlowVersionWithOptions;
+export const targetFlowWithOptions = TargetFlowWithOptions;
+export const targetFlowStep = TargetFlowStep;
+export const targetFlowStepWithOptions = TargetFlowStepWithOptions;
 export const audience = Audience;
 export const audienceWithOptions = AudienceWithOptions;
 export const formElements = FormElements;

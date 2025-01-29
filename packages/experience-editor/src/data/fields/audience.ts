@@ -9,7 +9,7 @@ export const Audience: Field = {
   required: false,
   hidden: true,
   dependencies: [],
-  render: "details.audience",
+  render: "details.target.audience",
 };
 
 export const AudienceWithOptions = (audiences: SelectOption[]) => {
