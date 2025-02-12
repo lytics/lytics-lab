@@ -132,19 +132,19 @@ export const TargetingSection: React.FC<TargetingSectionProps> = ({
                         ) : (
                           <>
                             This flow has no steps. Please select a different
-                            flow.
+                            Flow.
                           </>
                         ))}
                     </>
                   ) : (
                     <>
-                      This flow has no versions. Please select a different flow.
+                      This flow has no versions. Please select a different Flow.
                     </>
                   ))}
               </>
             ) : (
               <>
-                There are no flows available for this account. Please select a
+                There are no Flows available for this account. Please select a
                 different targeting method.
               </>
             )}
