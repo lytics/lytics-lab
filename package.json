@@ -71,7 +71,9 @@
   },
   "resolutions": {
     "minimist": "^1.2.8",
-    "qs": "^6.11.2"
+    "qs": "^6.11.2",
+    "string-width": "^4.2.0",
+    "wrap-ansi": "^7.0.0"
   },
   "volta": {
     "node": "20.11.0",
