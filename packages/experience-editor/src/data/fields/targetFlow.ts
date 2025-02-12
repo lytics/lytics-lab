@@ -3,7 +3,7 @@ import { Field, Flow } from "../pfa-fields";
 export const TargetFlowStep: Field = {
   id: "flowStep",
   label: "Flow Step",
-  description: "Which step of the flow?",
+  description: "Which step of the Flow?",
   required: false,
   hidden: true,
   type: "string",
@@ -14,7 +14,7 @@ export const TargetFlowStep: Field = {
 export const TargetFlowVersion: Field = {
   id: "flowVersion",
   label: "Flow Version",
-  description: "Which version of the flow?",
+  description: "Which version of the Flow?",
   required: false,
   hidden: true,
   type: "string",
@@ -26,7 +26,7 @@ export const TargetFlowVersion: Field = {
 export const TargetFlow: Field = {
   id: "flow",
   label: "Flow",
-  description: "Which flow to target",
+  description: "Which Flow to target",
   required: false,
   hidden: true,
   type: "string",

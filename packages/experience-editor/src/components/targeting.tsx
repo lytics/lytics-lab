@@ -102,28 +102,50 @@ export const TargetingSection: React.FC<TargetingSectionProps> = ({
 
         {flowField && formFieldVisibility[flowField.id] && (
           <ConditionGroup spacing={3} label={"Flow Targeting"}>
-            <SelectInput
-              field={flowField}
-              visible={isFieldSet(type.id)}
-              formValues={formValues}
-              handleChange={handleChange}
-            />
-            {flowVersionField && formFieldVisibility[flowVersionField.id] && (
+            {flows.length > 0 ? (
               <>
                 <SelectInput
-                  field={flowVersionField}
+                  field={flowField}
                   visible={isFieldSet(type.id)}
                   formValues={formValues}
                   handleChange={handleChange}
                 />
-                {flowStepField && formFieldVisibility[flowStepField.id] && (
-                  <SelectInput
-                    field={flowStepField}
-                    visible={isFieldSet(type.id)}
-                    formValues={formValues}
-                    handleChange={handleChange}
-                  />
-                )}
+                {flowVersionField &&
+                  formFieldVisibility[flowVersionField.id] &&
+                  (flowVersionField.options.length > 0 ? (
+                    <>
+                      <SelectInput
+                        field={flowVersionField}
+                        visible={isFieldSet(type.id)}
+                        formValues={formValues}
+                        handleChange={handleChange}
+                      />
+                      {flowStepField &&
+                        formFieldVisibility[flowStepField.id] &&
+                        (flowStepField.options.length > 0 ? (
+                          <SelectInput
+                            field={flowStepField}
+                            visible={isFieldSet(type.id)}
+                            formValues={formValues}
+                            handleChange={handleChange}
+                          />
+                        ) : (
+                          <>
+                            This flow has no steps. Please select a different
+                            flow.
+                          </>
+                        ))}
+                    </>
+                  ) : (
+                    <>
+                      This flow has no versions. Please select a different flow.
+                    </>
+                  ))}
+              </>
+            ) : (
+              <>
+                There are no flows available for this account. Please select a
+                different targeting method.
               </>
             )}
           </ConditionGroup>
