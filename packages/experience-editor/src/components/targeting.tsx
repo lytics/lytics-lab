@@ -131,7 +131,7 @@ export const TargetingSection: React.FC<TargetingSectionProps> = ({
                           />
                         ) : (
                           <>
-                            This flow has no steps. Please select a different
+                            This Flow has no steps. Please select a different
                             Flow.
                           </>
                         ))}
