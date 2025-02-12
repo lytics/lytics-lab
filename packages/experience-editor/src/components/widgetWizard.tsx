@@ -65,6 +65,12 @@ import {
   contentDisplayImage,
   contentDisplayDescription,
   contentDisplayDescriptionLimit,
+  targetMethod,
+  attributeRule,
+  Flow,
+  targetFlow,
+  targetFlowVersion,
+  targetFlowStep,
 } from "../data/pfa-fields";
 
 import { TextAreaInput } from "./form/textarea";
@@ -90,6 +96,7 @@ interface WidgetWizardProps {
   accesstoken?: string;
   pathforaconfig: string;
   availableaudiences: string;
+  availableflows: string;
   availablecollections: string;
   availablefields: string;
 
@@ -132,6 +139,7 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
   pathforaconfig,
   availableaudiences,
   availablecollections,
+  availableflows,
   titlefield,
   descriptionfield,
   statusfield,
@@ -150,6 +158,7 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
   const [pathfora, setPathfora] = useState<any>();
   const [audiences, setAudiences] = useState<SelectOption[]>([]);
   const [collections, setCollections] = useState<SelectOption[]>([]);
+  const [flows, setFlows] = useState<Flow[]>([]);
   const [slugLink, setSlugLink] = useState<boolean>(true);
 
   const fields: Field[] = [
@@ -158,6 +167,11 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
     layout,
     variant,
     theme,
+    targetMethod,
+    targetFlow,
+    targetFlowVersion,
+    targetFlowStep,
+    attributeRule,
     backgroundColor,
     textColor,
     headlineColor,
@@ -236,6 +250,10 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
     if (availablecollections) {
       const decodedCollections = atob(availablecollections);
       setCollections(JSON.parse(decodedCollections));
+    }
+    if (availableflows) {
+      const decodedFlows = atob(availableflows);
+      setFlows(JSON.parse(decodedFlows));
     }
   }, []);
 
@@ -421,6 +439,17 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
 
   const checkDependency = (fieldID: string, value: string) => {
     const field = fields.find((field) => field.id === fieldID);
+
+    if (field?.fieldsToShow) {
+      if (value != "") {
+        field.fieldsToShow.forEach((id) => {
+          setFormFieldVisibility((prevVisibility) => ({
+            ...prevVisibility,
+            [id]: true,
+          }));
+        });
+      }
+    }
 
     if (!field?.dependencies) {
       return;
@@ -823,7 +852,10 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
                       formValues={formValues}
                       isFieldSet={isFieldSet}
                       handleChange={handleChange}
+                      handleCallbackChange={handleCallbackChange}
+                      formFieldVisibility={formFieldVisibility}
                       audiences={audiences}
+                      flows={flows}
                     />
                   </TabPanel>
 
