@@ -1,6 +1,6 @@
 {
   "name": "@lytics/recommendation-block",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/lytics-recommendation-block.js",
   "scripts": {
     "start": "vite",
@@ -14,7 +14,7 @@
     "access": "public"
   },
   "volta": {
-    "node": "16.20.2",
+    "node": "18.0.0",
     "yarn": "1.22.18"
   }
 }

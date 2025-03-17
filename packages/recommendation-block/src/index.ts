@@ -38,16 +38,33 @@ class LyticsRecommendationBlock {
     document.head.appendChild(style);
   }
 
-  public static attach(context: HTMLElement): void {
+  public static attach(): void {
     if (!LyticsRecommendationBlock.attached) {
       LyticsRecommendationBlock.attached = true;
 
       // Inject styles into the document
       LyticsRecommendationBlock.injectStyles();
 
+      const getUId = async (): Promise<string> => {
+        return new Promise((resolve) => {
+          (window as any).jstag.getid((result: string) => {
+            resolve(result);
+          });
+        });
+      };
+
       const populateRecommendation = async (entity: any): Promise<void> => {
         // Get the UID
-        const uid = entity?.data?.user?._uid;
+        let uid = await getUId();
+
+        // If uid is empty fallback to the profile
+        if (!uid && entity?.data?.user?._uid) {
+          uid = entity.data.user._uid;
+        }
+
+        if (!uid) {
+          uid = "invalid-uid";
+        }
 
         // Get all Block Elements
         const recContainers = document.querySelectorAll(
