@@ -4,7 +4,7 @@ export const PersonalizationKey: Field = {
   id: "personalizationKey",
   label: "Personalization Key (for flows)",
   description:
-    "Select the personalization key to target the widget for a step in a flow.",
+    "Select a personalization key to display widget based on progression through a flow.",
   type: "string",
   method: "select",
   required: false,
