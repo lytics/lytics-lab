@@ -1,7 +1,7 @@
 import { Field } from "../pfa-fields";
 import { Audience } from "./audience";
 import { AttributeRule } from "./attributeRule";
-import { TargetFlow } from "./targetFlow";
+import { PersonalizationKey } from "./personalizationKeys";
 
 export const TargetMethod: Field = {
   id: "targetMethod",
@@ -15,8 +15,8 @@ export const TargetMethod: Field = {
       value: "audience",
     },
     {
-      label: "Flow",
-      value: "flow",
+      label: "Personalization Key",
+      value: "personalizationKey",
     },
     {
       label: "Attribute",
@@ -31,8 +31,8 @@ export const TargetMethod: Field = {
       fieldsToShow: [Audience.id],
     },
     {
-      value: "flow",
-      fieldsToShow: [TargetFlow.id],
+      value: "personalizationKey",
+      fieldsToShow: [PersonalizationKey.id],
     },
     {
       value: "attribute",

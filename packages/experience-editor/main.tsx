@@ -10,6 +10,7 @@ const LyticswidgetWizardWC = r2wc(WidgetWizard, React, ReactDOM, {
     pathforaconfig: "string",
     availableaudiences: "string",
     availableflows: "string",
+    availablepersonalizationkeys: "string",
     availablecollections: "string",
     availablefields: "string",
     titlefield: "string",
