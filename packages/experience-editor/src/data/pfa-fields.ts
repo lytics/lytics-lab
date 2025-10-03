@@ -78,6 +78,10 @@ import {
   TargetFlowStep,
   TargetFlowStepWithOptions,
 } from "./fields/targetFlow";
+import {
+  PersonalizationKey,
+  PersonalizationKeyWithOptions,
+} from "./fields/personalizationKeys";
 
 export interface Field {
   id: string;
@@ -192,6 +196,8 @@ export const contentDisplayTitle = ContentDisplayTitle;
 export const contentDisplayImage = ContentDisplayImage;
 export const contentDisplayDescription = ContentDisplayDescription;
 export const contentDisplayDescriptionLimit = ContentDisplayDescriptionLimit;
+export const personalizationKey = PersonalizationKey;
+export const personalizationKeyWithOptions = PersonalizationKeyWithOptions;
 
 // display conditions
 //   showOnInit

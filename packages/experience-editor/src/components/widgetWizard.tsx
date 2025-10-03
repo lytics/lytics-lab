@@ -71,6 +71,7 @@ import {
   targetFlow,
   targetFlowVersion,
   targetFlowStep,
+  personalizationKey,
 } from "../data/pfa-fields";
 
 import { TextAreaInput } from "./form/textarea";
@@ -98,6 +99,7 @@ interface WidgetWizardProps {
   availableaudiences: string;
   availableflows: string;
   availablecollections: string;
+  availablepersonalizationkeys: string;
   availablefields: string;
 
   // parent fields
@@ -140,6 +142,7 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
   availableaudiences,
   availablecollections,
   availableflows,
+  availablepersonalizationkeys,
   titlefield,
   descriptionfield,
   statusfield,
@@ -159,6 +162,9 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
   const [audiences, setAudiences] = useState<SelectOption[]>([]);
   const [collections, setCollections] = useState<SelectOption[]>([]);
   const [flows, setFlows] = useState<Flow[]>([]);
+  const [personalizationKeys, setPersonalizationKeys] = useState<
+    SelectOption[]
+  >([]);
   const [slugLink, setSlugLink] = useState<boolean>(true);
 
   const fields: Field[] = [
@@ -168,9 +174,7 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
     variant,
     theme,
     targetMethod,
-    targetFlow,
-    targetFlowVersion,
-    targetFlowStep,
+    personalizationKey,
     attributeRule,
     backgroundColor,
     textColor,
@@ -254,6 +258,14 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
     if (availableflows) {
       const decodedFlows = atob(availableflows);
       setFlows(JSON.parse(decodedFlows));
+    }
+
+    if (availablepersonalizationkeys) {
+      const decodedPersonalizationKeys = atob(availablepersonalizationkeys);
+      const parsedPersonalizationKeys = JSON.parse(decodedPersonalizationKeys);
+      setPersonalizationKeys(
+        parsedPersonalizationKeys.map((label) => ({ label, value: label })),
+      );
     }
   }, []);
 
@@ -855,7 +867,7 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
                       handleCallbackChange={handleCallbackChange}
                       formFieldVisibility={formFieldVisibility}
                       audiences={audiences}
-                      flows={flows}
+                      personalizationKeys={personalizationKeys}
                     />
                   </TabPanel>
 

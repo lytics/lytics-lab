@@ -17,6 +17,7 @@ export default defineConfig(({ mode }) => {
             pathforaConfig: env.VITE_PATHFORA_CFG,
             availableAudiences: env.VITE_AUDIENCES,
             availableFlows: env.VITE_FLOWS,
+            availablePersonalizationKeys: env.VITE_PERSONALIZATION_KEYS,
             availableCollections: env.VITE_COLLECTIONS,
           },
         },
