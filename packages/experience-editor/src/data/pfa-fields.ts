@@ -16,6 +16,9 @@ import {
 } from "./fields/colors";
 import { Message } from "./fields/msg";
 import { OKShow } from "./fields/okShow";
+import { OKShowLink } from "./fields/okShowLink";
+import { OKLinkURL } from "./fields/okLinkURL";
+import { OKLinkNewTab } from "./fields/okLinkNewTab";
 import { OKMessage } from "./fields/okMessage";
 import { CancelShow } from "./fields/cancelShow";
 import { CancelMessage } from "./fields/cancelMessage";
@@ -99,6 +102,10 @@ export interface Field {
     value: string | boolean;
     fieldsToShow: string[];
   }[];
+  translate?: {
+    render: string;
+    renderValue: (value: any, config: any) => any;
+  };
 }
 
 export interface Flow {
@@ -137,6 +144,9 @@ export const fieldBackgroundColor = FieldBackgroundColor;
 export const message = Message;
 export const okShow = OKShow;
 export const okMessage = OKMessage;
+export const okShowLink = OKShowLink;
+export const okLinkURL = OKLinkURL;
+export const okLinkNewTab = OKLinkNewTab;
 export const cancelShow = CancelShow;
 export const cancelMessage = CancelMessage;
 export const image = Image;

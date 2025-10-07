@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FormControlLabel, Checkbox } from "@mui/material";
 import { Field } from "../../data/pfa-fields";
 
@@ -11,6 +11,12 @@ export interface CheckboxInputProps {
 
 export const CheckboxInput: React.FC<CheckboxInputProps> = (textInputProps) => {
   const { field, formValues, handleChange, visible } = textInputProps;
+
+  useEffect(() => {
+    if (!visible) {
+      handleChange(field.id, "false");
+    }
+  }, [visible, field.id]);
 
   return (
     <>
