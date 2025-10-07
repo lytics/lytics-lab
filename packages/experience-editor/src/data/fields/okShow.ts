@@ -11,7 +11,7 @@ export const OKShow: Field = {
   dependencies: [
     {
       value: true,
-      fieldsToShow: ["okMessage"],
+      fieldsToShow: ["okMessage", "okShowLink"],
     },
   ],
   render: "config.okShow",

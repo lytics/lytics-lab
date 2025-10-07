@@ -71,6 +71,9 @@ import {
   targetFlow,
   targetFlowVersion,
   targetFlowStep,
+  okLinkNewTab,
+  okShowLink,
+  okLinkURL,
   personalizationKey,
 } from "../data/pfa-fields";
 
@@ -188,6 +191,9 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
     message,
     okShow,
     okMessage,
+    okShowLink,
+    okLinkURL,
+    okLinkNewTab,
     cancelShow,
     cancelMessage,
     image,
@@ -395,6 +401,13 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
 
   const renderConfiguration = () => {
     let config = {};
+    let renderedConfigObject;
+
+    try {
+      renderedConfigObject = JSON.parse(renderedConfig);
+    } catch (error) {
+      console.error("Error parsing rendered config:", error);
+    }
 
     fields.forEach((field) => {
       // check if we have a valid value set
@@ -416,6 +429,31 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
       // if we have a value set, add it to the config object
       if (hasValue) {
         currentObject[pathArray[pathArray.length - 1]] = formValues[field.id];
+      }
+    });
+
+    // handle translate fields
+    fields.forEach((field) => {
+      if (field.translate && formValues[field.id] !== undefined) {
+        const fieldValue = formValues[field.id];
+        const translatedValue = field.translate.renderValue(
+          fieldValue,
+          renderedConfigObject,
+        );
+
+        // render the translated value to its position
+        const pathArray = field.translate.render.split(".");
+        const pathsToVerify = pathArray.slice(0, pathArray.length - 1);
+
+        let currentObject = config;
+        pathsToVerify.forEach((path) => {
+          if (!currentObject[path]) {
+            currentObject[path] = {};
+          }
+          currentObject = currentObject[path];
+        });
+
+        currentObject[pathArray[pathArray.length - 1]] = translatedValue;
       }
     });
 
@@ -447,6 +485,23 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
       configurationfield,
     ) as HTMLInputElement;
     configElement.value = renderConfiguration();
+  };
+
+  const getDependentFields = (fieldId: string): string[] => {
+    const field = fields.find((f) => f.id === fieldId);
+    const dependentFields: string[] = [];
+
+    if (field?.dependencies) {
+      field.dependencies.forEach((dependency) => {
+        dependency.fieldsToShow.forEach((id) => {
+          dependentFields.push(id);
+          // Recursively get nested dependencies
+          dependentFields.push(...getDependentFields(id));
+        });
+      });
+    }
+
+    return dependentFields;
   };
 
   const checkDependency = (fieldID: string, value: string) => {
@@ -491,6 +546,9 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
       valuesToCheck = [value];
     }
 
+    // Collect fields that should remain visible
+    const fieldsToKeepVisible = new Set<string>();
+
     valuesToCheck.forEach((v) => {
       // see if there is a dependency where the value matches the value set for the field
       const dependencyMatch = field.dependencies?.find(
@@ -500,6 +558,7 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
       // if there is a match, show the fields
       if (dependencyMatch) {
         dependencyMatch.fieldsToShow.forEach((id) => {
+          fieldsToKeepVisible.add(id);
           setFormFieldVisibility((prevVisibility) => ({
             ...prevVisibility,
             [id]: true,
@@ -507,6 +566,27 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
         });
       }
     });
+
+    // Clear values for fields that should be hidden
+    const fieldsToClear = allFieldsToShow.filter(
+      (id) => !fieldsToKeepVisible.has(id),
+    );
+
+    if (fieldsToClear.length > 0) {
+      setFormValues((prevFormValues) => {
+        const newFormValues = { ...prevFormValues };
+        fieldsToClear.forEach((id) => {
+          // Get all nested dependent fields recursively
+          const nestedDependents = getDependentFields(id);
+          // Clear the field and all its nested dependencies
+          delete newFormValues[id];
+          nestedDependents.forEach((nestedId) => {
+            delete newFormValues[nestedId];
+          });
+        });
+        return newFormValues;
+      });
+    }
   };
 
   const isFieldSet = (field: string): boolean => {

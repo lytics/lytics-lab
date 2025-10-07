@@ -29,5 +29,9 @@
   "volta": {
     "node": "16.20.2",
     "yarn": "1.22.18"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0"
   }
 }
