@@ -1,7 +1,6 @@
 import { Type } from "./fields/type";
 import { Headline } from "./fields/headline";
 import { Layout, LayoutWithOptions } from "./fields/layout";
-import { Variant, VariantWithOptions } from "./fields/variant";
 import { Theme } from "./fields/theme";
 import {
   BackgroundColor,
@@ -129,8 +128,6 @@ export const type = Type;
 export const headline = Headline;
 export const layout = Layout;
 export const layoutWithOptions = LayoutWithOptions;
-export const variant = Variant;
-export const variantWithOptions = VariantWithOptions;
 export const theme = Theme;
 export const backgroundColor = BackgroundColor;
 export const textColor = TextColor;
