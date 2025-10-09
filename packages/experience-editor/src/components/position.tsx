@@ -9,7 +9,6 @@ import {
   type,
   layout,
   layoutWithOptions,
-  variantWithOptions,
   image,
   positionSelector,
   position,
@@ -50,13 +49,6 @@ export const PositionSection: React.FC<PositionSectionProps> = ({
       {isFieldSet(layout.id) && (
         <Stack spacing={spacing} direction={"row"}>
           <ConditionGroup spacing={spacing} label={"Design Options"}>
-            <SelectInput
-              field={variantWithOptions(formValues[layout.id])}
-              visible={isFieldSet(layout.id)}
-              formValues={formValues}
-              handleChange={handleChange}
-            />
-
             <TextInput
               field={image}
               visible={formFieldVisibility[image.id] || !image.hidden}

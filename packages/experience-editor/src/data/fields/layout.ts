@@ -25,39 +25,19 @@ const OptionInline: SelectOption = {
   value: "inline",
 };
 
+const OptionGate: SelectOption = {
+  label: "Gate",
+  value: "gate",
+};
+
 const getSelectOptions = (type: string): SelectOption[] => {
   switch (type) {
     case "message":
-      return [
-        OptionModal,
-        OptionSlideout,
-        OptionBar,
-        // OptionButton,
-        // OptionInline,
-      ];
+      return [OptionModal, OptionSlideout, OptionBar, OptionInline, OptionGate];
     case "form":
-      return [
-        OptionModal,
-        OptionSlideout,
-        // OptionInline,
-      ];
+      return [OptionModal, OptionSlideout, OptionInline, OptionGate];
     case "recommendation":
-      return [
-        OptionModal,
-        OptionSlideout,
-        // OptionInline,
-      ];
-    case "subscription":
-      return [
-        OptionModal,
-        OptionSlideout,
-        OptionBar,
-        // OptionInline,
-      ];
-    case "gate":
-      return [];
-    default:
-      return [];
+      return [OptionModal, OptionSlideout, OptionInline, OptionGate];
   }
 };
 
@@ -72,23 +52,23 @@ export const Layout: Field = {
   dependencies: [
     {
       value: "modal",
-      fieldsToShow: ["variant", "positionSelector"],
+      fieldsToShow: ["image", "positionSelector"],
     },
     {
       value: "slideout",
-      fieldsToShow: ["variant", "position", "positionSelector", "origin"],
+      fieldsToShow: ["image", "position", "positionSelector", "origin"],
     },
     {
       value: "bar",
-      fieldsToShow: ["variant", "position", "positionSelector"],
-    },
-    {
-      value: "button",
-      fieldsToShow: ["position", "positionSelector"],
+      fieldsToShow: ["image", "position", "positionSelector"],
     },
     {
       value: "inline",
-      fieldsToShow: ["variant", "positionSelector"],
+      fieldsToShow: ["image", "positionSelector"],
+    },
+    {
+      value: "gate",
+      fieldsToShow: ["image", "positionSelector"],
     },
   ],
   render: "config.layout",
