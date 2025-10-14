@@ -1,6 +1,7 @@
 import { Field } from "../pfa-fields";
 import {
   contentCollection,
+  contentRank,
   contentVisited,
   contentShuffle,
   contentDisplayTitle,
@@ -38,6 +39,7 @@ export const Type: Field = {
       value: "recommendation",
       fieldsToShow: [
         "contentCollection",
+        "contentRank",
         "contentVisited",
         "contentShuffle",
         "contentDisplayTitle",

@@ -71,6 +71,7 @@ import {
   ContentDisplayImage,
   ContentDisplayDescription,
   ContentDisplayDescriptionLimit,
+  ContentRank,
 } from "./fields/recommend";
 import {
   TargetFlow,
@@ -197,6 +198,7 @@ export const audienceWithOptions = AudienceWithOptions;
 export const formElements = FormElements;
 export const contentCollection = ContentCollection;
 export const contentCollectionWithOptions = ContentCollectionWithOptions;
+export const contentRank = ContentRank;
 export const contentVisited = ContentVisited;
 export const contentShuffle = ContentShuffle;
 export const contentDisplayTitle = ContentDisplayTitle;
