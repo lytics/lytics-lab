@@ -27,6 +27,9 @@ export const DatePickerInput: React.FC<DatePickerInputProps> = (
             onChange={(newVal: Date) =>
               handleChange(field.id, newVal.toISOString())
             }
+            inputProps={{
+              variant: "outlined",
+            }}
           />
           <Typography variant="body2" sx={{ ...helperTextStyles }}>
             {field.description}

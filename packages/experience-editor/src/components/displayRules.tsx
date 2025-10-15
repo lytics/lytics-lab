@@ -380,6 +380,7 @@ export const DisplayRulesSection: React.FC<DisplayRulesSectionProps> = ({
                         handleChange={handleChange}
                       />
                     </LocalizationProvider>
+                    <Box sx={{ alignSelf: "center" }}>to</Box>
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                       <DatePickerInput
                         field={dateRangeEnd}

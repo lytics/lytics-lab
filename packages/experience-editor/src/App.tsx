@@ -3,6 +3,7 @@ import { Box } from "@mui/material";
 import WidgetWizard from "./components/widgetWizard";
 import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 import { LightBlueGray, DarkestBlueGray } from "./utility/colors";
+import type {} from "@mui/x-date-pickers/themeAugmentation";
 
 const theme = createTheme({
   components: {
@@ -13,6 +14,14 @@ const theme = createTheme({
             boxShadow: "none",
             borderColor: "none",
           },
+        },
+      },
+    },
+    MuiPickersTextField: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#FFF",
+          width: "100%",
         },
       },
     },
@@ -37,6 +46,14 @@ const theme = createTheme({
             fontSize: "12px",
           },
           "& .MuiInputBase-input": {
+            backgroundColor: "#FFF",
+            "&:focus": {
+              boxShadow: "none",
+              borderColor: "none",
+            },
+          },
+
+          "& .MuiPickersInputBase-root": {
             backgroundColor: "#FFF",
             "&:focus": {
               boxShadow: "none",
@@ -117,8 +134,6 @@ const CoreWidgetWizard: React.FC<CoreWidgetWizardProps> = ({
   } catch (e) {
     pathforaconfig = "";
   }
-
-  console.log("testing");
 
   return (
     <Box p={0} mb={2} bgcolor="#FFF">
