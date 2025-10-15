@@ -1,0 +1,9 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 💬 Discussions
+    url: https://github.com/lytics/lytics-lab/discussions
+    about: Ask questions and discuss ideas with the community
+  - name: 📚 Documentation
+    url: https://github.com/lytics/lytics-lab#readme
+    about: Read the documentation
+
