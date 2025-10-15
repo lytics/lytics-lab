@@ -58,6 +58,7 @@ import {
   audience,
   formElements,
   contentCollection,
+  contentRank,
   contentVisited,
   contentShuffle,
   contentDisplayTitle,
@@ -231,6 +232,7 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
     audience,
     formElements,
     contentCollection,
+    contentRank,
     contentVisited,
     contentShuffle,
     contentDisplayTitle,
@@ -561,6 +563,21 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
             ...prevVisibility,
             [id]: true,
           }));
+
+          // Set default value for contentRank when recommendation type is selected
+          const dependentField = fields.find((f) => f.id === id);
+          if (dependentField?.id === "contentRank") {
+            setFormValues((prevFormValues) => {
+              // Only set default if not already set
+              if (prevFormValues[id] === undefined) {
+                return {
+                  ...prevFormValues,
+                  [id]: "affinity",
+                };
+              }
+              return prevFormValues;
+            });
+          }
         });
       }
     });
