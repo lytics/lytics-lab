@@ -104,8 +104,12 @@ export const ContentRank: Field = {
       value: "popular",
     },
     {
-      label: "Most Recent",
+      label: "Most Recently Published",
       value: "recent",
+    },
+    {
+      label: "Most Recent Interaction",
+      value: "last_interaction",
     },
   ],
 };
