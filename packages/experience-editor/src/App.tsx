@@ -22,6 +22,10 @@ const theme = createTheme({
         root: {
           backgroundColor: "#FFF",
           width: "100%",
+          "&.Mui-disabled": {
+            backgroundColor: "#F5F5F5",
+            color: "#666",
+          },
         },
       },
     },

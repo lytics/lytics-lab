@@ -55,6 +55,7 @@ import {
 import {
   DateRangeStart,
   DateRangeEnd,
+  DateRangeIndefinite,
 } from "./fields/displayConditions/dateRange";
 import { URLContains } from "./fields/displayConditions/urlContains";
 import { ConfirmAction } from "./fields/callbacks/confirmAction";
@@ -99,11 +100,11 @@ export interface Field {
   required?: boolean;
   hidden: boolean;
   support?: string[];
-  render: string;
-  fieldsToShow?: string[];
+  render?: string;
   dependencies?: {
     value: string | boolean;
-    fieldsToShow: string[];
+    fieldsToShow?: string[];
+    fieldsToDisable?: string[];
   }[];
   translate?: {
     render: string;
@@ -184,6 +185,7 @@ export const hideAfterActionCancelHideDuration =
   HideAfterActionCancelHideDuration;
 export const dateRangeStart = DateRangeStart;
 export const dateRangeEnd = DateRangeEnd;
+export const dateRangeIndefinite = DateRangeIndefinite;
 export const urlContains = URLContains;
 export const confirmAction = ConfirmAction;
 export const cancelAction = CancelAction;

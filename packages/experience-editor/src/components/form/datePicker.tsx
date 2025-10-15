@@ -8,6 +8,7 @@ import { parseISO } from "date-fns";
 export interface DatePickerInputProps {
   field: Field;
   visible: boolean;
+  disabled: boolean;
   formValues: { [key: string]: string };
   handleChange: (id: string, value: string) => void;
 }
@@ -15,7 +16,8 @@ export interface DatePickerInputProps {
 export const DatePickerInput: React.FC<DatePickerInputProps> = (
   datePickerInputProps,
 ) => {
-  const { field, formValues, handleChange, visible } = datePickerInputProps;
+  const { field, formValues, handleChange, visible, disabled } =
+    datePickerInputProps;
 
   return (
     <>
@@ -27,9 +29,7 @@ export const DatePickerInput: React.FC<DatePickerInputProps> = (
             onChange={(newVal: Date) =>
               handleChange(field.id, newVal.toISOString())
             }
-            inputProps={{
-              variant: "outlined",
-            }}
+            disabled={disabled}
           />
           <Typography variant="body2" sx={{ ...helperTextStyles }}>
             {field.description}

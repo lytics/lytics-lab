@@ -43,7 +43,7 @@ const OptionShowOnExitIntent: SelectOption = {
 };
 
 const OptionDateRange: SelectOption = {
-  label: "Date Range",
+  label: "Define date range to display the widget?",
   value: "dateRange",
   type: "null",
 };
@@ -112,7 +112,7 @@ export const DisplayConditions: Field = {
     },
     {
       value: "dateRange",
-      fieldsToShow: ["dateRangeStart", "dateRangeEnd"],
+      fieldsToShow: ["dateRangeStart", "dateRangeEnd", "dateRangeIndefinite"],
     },
   ],
   render: "details.displayConditions",

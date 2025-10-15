@@ -21,3 +21,18 @@ export const DateRangeEnd: Field = {
   hidden: true,
   render: "config.displayConditions.dateRange.end_at",
 };
+
+export const DateRangeIndefinite: Field = {
+  id: "dateRangeIndefinite",
+  label: "Display widget indefinitely",
+  type: "boolean",
+  method: "checkbox",
+  required: false,
+  hidden: true,
+  dependencies: [
+    {
+      value: "true",
+      fieldsToDisable: ["dateRangeEnd"],
+    },
+  ],
+};

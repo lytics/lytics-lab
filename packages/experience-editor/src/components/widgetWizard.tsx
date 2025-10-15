@@ -51,6 +51,7 @@ import {
   hideAfterActionCancelHideDuration,
   dateRangeStart,
   dateRangeEnd,
+  dateRangeIndefinite,
   urlContains,
   confirmAction,
   cancelAction,
@@ -155,6 +156,9 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
   const [formFieldVisibility, setFormFieldVisibility] = useState<{
     [key: string]: boolean;
   }>({});
+  const [formFieldDisabled, setFormFieldDisabled] = useState<{
+    [key: string]: boolean;
+  }>({});
   const [editorTypeTabValue, setEditorTypeTabValue] = useState(0);
   const [basicEditorTabValue, setBasicEditorTabValue] = useState(0);
   const [advancedEditorTabValue, setAdvancedEditorTabValue] = useState(0);
@@ -222,6 +226,7 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
     hideAfterActionCancelHideCount,
     hideAfterActionCancelHideDuration,
     dateRangeStart,
+    dateRangeIndefinite,
     dateRangeEnd,
     urlContains,
     confirmAction,
@@ -328,6 +333,9 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
     // handle basic fields
     fields.forEach((field) => {
       const { id, render } = field;
+      if (render === undefined) {
+        return;
+      }
       let value = getValueByDotNotation(inboundPathforaConfig, render);
 
       // if we have no status set it to draft
@@ -413,6 +421,9 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
       const hasValue = formValues[field.id] !== undefined;
 
       // if we have a value render its position in the config object
+      if (field.render === undefined) {
+        return;
+      }
       const pathArray = field.render.split(".");
       const pathsToVerify = pathArray.slice(0, pathArray.length - 1);
 
@@ -492,7 +503,7 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
 
     if (field?.dependencies) {
       field.dependencies.forEach((dependency) => {
-        dependency.fieldsToShow.forEach((id) => {
+        dependency.fieldsToShow?.forEach((id) => {
           dependentFields.push(id);
           // Recursively get nested dependencies
           dependentFields.push(...getDependentFields(id));
@@ -506,34 +517,36 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
   const checkDependency = (fieldID: string, value: string) => {
     const field = fields.find((field) => field.id === fieldID);
 
-    if (field?.fieldsToShow) {
-      if (value != "") {
-        field.fieldsToShow.forEach((id) => {
-          setFormFieldVisibility((prevVisibility) => ({
-            ...prevVisibility,
-            [id]: true,
-          }));
-        });
-      }
-    }
-
     if (!field?.dependencies) {
       return;
     }
 
     // get all fields to show and hide them initially
     const uniqueFieldsToShow = new Set<string>();
+    const uniqueFieldsToDisable = new Set<string>();
     field.dependencies?.forEach((dependency) => {
-      dependency.fieldsToShow.forEach((fieldId: string) => {
+      dependency.fieldsToShow?.forEach((fieldId: string) => {
         uniqueFieldsToShow.add(fieldId);
+      });
+      dependency.fieldsToDisable?.forEach((fieldId: string) => {
+        uniqueFieldsToDisable.add(fieldId);
       });
     });
     const allFieldsToShow = Array.from(uniqueFieldsToShow);
+    const allFieldsToDisable = Array.from(uniqueFieldsToDisable);
 
     // set visibility to false for all fields to show
     allFieldsToShow.forEach((id) => {
       setFormFieldVisibility((prevVisibility) => ({
         ...prevVisibility,
+        [id]: false,
+      }));
+    });
+
+    // set visibility to false for all fields to disable
+    allFieldsToDisable.forEach((id) => {
+      setFormFieldDisabled((prevDisabled) => ({
+        ...prevDisabled,
         [id]: false,
       }));
     });
@@ -547,6 +560,7 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
 
     // Collect fields that should remain visible
     const fieldsToKeepVisible = new Set<string>();
+    const fieldsToKeepDisabled = new Set<string>();
 
     valuesToCheck.forEach((v) => {
       // see if there is a dependency where the value matches the value set for the field
@@ -556,10 +570,18 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
 
       // if there is a match, show the fields
       if (dependencyMatch) {
-        dependencyMatch.fieldsToShow.forEach((id) => {
+        dependencyMatch.fieldsToShow?.forEach((id) => {
           fieldsToKeepVisible.add(id);
           setFormFieldVisibility((prevVisibility) => ({
             ...prevVisibility,
+            [id]: true,
+          }));
+        });
+
+        dependencyMatch.fieldsToDisable?.forEach((id) => {
+          fieldsToKeepDisabled.add(id);
+          setFormFieldDisabled((prevDisabled) => ({
+            ...prevDisabled,
             [id]: true,
           }));
         });
@@ -567,9 +589,9 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
     });
 
     // Clear values for fields that should be hidden
-    const fieldsToClear = allFieldsToShow.filter(
-      (id) => !fieldsToKeepVisible.has(id),
-    );
+    const fieldsToClear = allFieldsToShow
+      .filter((id) => !fieldsToKeepVisible.has(id))
+      .concat(Array.from(fieldsToKeepDisabled));
 
     if (fieldsToClear.length > 0) {
       setFormValues((prevFormValues) => {
@@ -977,6 +999,7 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
                       isFieldSet={isFieldSet}
                       handleChange={handleChange}
                       formFieldVisibility={formFieldVisibility}
+                      formFieldDisabled={formFieldDisabled}
                       spacing={inputSpaceVert}
                     />
                   </TabPanel>
