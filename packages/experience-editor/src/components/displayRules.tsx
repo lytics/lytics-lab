@@ -28,7 +28,13 @@ import {
   hideAfterActionConfirmHideDuration,
   hideAfterActionCancelHideCount,
   hideAfterActionCancelHideDuration,
+  dateRangeStart,
+  dateRangeEnd,
 } from "../data/pfa-fields";
+import { DatePickerInput } from "./form/datePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { Checkbox, FormGroup, Box, FormControlLabel } from "@mui/material";
 
 interface DisplayRulesSectionProps {
   formValues: { [key: string]: string };
@@ -47,7 +53,7 @@ export const DisplayRulesSection: React.FC<DisplayRulesSectionProps> = ({
 }) => {
   const fieldValueContains = (
     field: string,
-    value: string | string[]
+    value: string | string[],
   ): boolean => {
     const values = Array.isArray(value) ? value : [value];
     return values.some((v) => {
@@ -115,7 +121,7 @@ export const DisplayRulesSection: React.FC<DisplayRulesSectionProps> = ({
                         type="number"
                         visible={fieldValueContains(
                           displayConditions.id,
-                          hideAfter.id
+                          hideAfter.id,
                         )}
                         formValues={formValues}
                         handleChange={handleChange}
@@ -127,7 +133,7 @@ export const DisplayRulesSection: React.FC<DisplayRulesSectionProps> = ({
                         type="number"
                         visible={fieldValueContains(
                           displayConditions.id,
-                          pageVisits.id
+                          pageVisits.id,
                         )}
                         formValues={formValues}
                         handleChange={handleChange}
@@ -139,7 +145,7 @@ export const DisplayRulesSection: React.FC<DisplayRulesSectionProps> = ({
                         type="number"
                         visible={fieldValueContains(
                           displayConditions.id,
-                          scrollPercentageToDisplay.id
+                          scrollPercentageToDisplay.id,
                         )}
                         formValues={formValues}
                         handleChange={handleChange}
@@ -151,7 +157,7 @@ export const DisplayRulesSection: React.FC<DisplayRulesSectionProps> = ({
                         type="number"
                         visible={fieldValueContains(
                           displayConditions.id,
-                          showDelay.id
+                          showDelay.id,
                         )}
                         formValues={formValues}
                         handleChange={handleChange}
@@ -162,7 +168,7 @@ export const DisplayRulesSection: React.FC<DisplayRulesSectionProps> = ({
                         field={showOnExitIntent}
                         visible={fieldValueContains(
                           displayConditions.id,
-                          showOnExitIntent.id
+                          showOnExitIntent.id,
                         )}
                         formValues={formValues}
                         handleChange={handleChange}
@@ -353,6 +359,52 @@ export const DisplayRulesSection: React.FC<DisplayRulesSectionProps> = ({
                       />
                     </ConditionGroup>
                   </Stack>
+                </Stack>
+              )}
+
+              {fieldValueContains(displayConditions.id, "dateRange") && (
+                <Stack spacing={3}>
+                  <SectionHeader
+                    variation="secondary"
+                    headline={"Date Range to display the widget?"}
+                    description={
+                      "Select the start and end date and times for the widget to display."
+                    }
+                  />
+                  <Stack spacing={spacing} direction={"row"}>
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                      <DatePickerInput
+                        field={dateRangeStart}
+                        visible={formFieldVisibility[dateRangeStart.id]}
+                        formValues={formValues}
+                        handleChange={handleChange}
+                      />
+                    </LocalizationProvider>
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                      <DatePickerInput
+                        field={dateRangeEnd}
+                        visible={formFieldVisibility[dateRangeEnd.id]}
+                        formValues={formValues}
+                        handleChange={handleChange}
+                      />
+                    </LocalizationProvider>
+                  </Stack>
+                  <FormGroup sx={{ display: "block" }}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={formValues[dateRangeEnd.id] === null}
+                          onChange={(event) =>
+                            handleChange(
+                              dateRangeEnd.id,
+                              event.target.checked ? null : undefined,
+                            )
+                          }
+                        />
+                      }
+                      label="Run experience indefinitely"
+                    />
+                  </FormGroup>
                 </Stack>
               )}
             </Stack>

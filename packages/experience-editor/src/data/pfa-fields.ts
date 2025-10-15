@@ -52,6 +52,10 @@ import {
   HideAfterActionCancelHideCount,
   HideAfterActionCancelHideDuration,
 } from "./fields/displayConditions/hideAfterAction";
+import {
+  DateRangeStart,
+  DateRangeEnd,
+} from "./fields/displayConditions/dateRange";
 import { URLContains } from "./fields/displayConditions/urlContains";
 import { ConfirmAction } from "./fields/callbacks/confirmAction";
 import { CancelAction } from "./fields/callbacks/cancelAction";
@@ -178,6 +182,8 @@ export const hideAfterActionConfirmHideDuration =
 export const hideAfterActionCancelHideCount = HideAfterActionCancelHideCount;
 export const hideAfterActionCancelHideDuration =
   HideAfterActionCancelHideDuration;
+export const dateRangeStart = DateRangeStart;
+export const dateRangeEnd = DateRangeEnd;
 export const urlContains = URLContains;
 export const confirmAction = ConfirmAction;
 export const cancelAction = CancelAction;
