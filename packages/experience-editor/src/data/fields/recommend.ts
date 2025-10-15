@@ -94,6 +94,7 @@ export const ContentRank: Field = {
   required: false,
   hidden: true,
   render: "config.recommend.rank",
+  defaultValue: "affinity",
   options: [
     {
       label: "Highest Affinity",

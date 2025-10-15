@@ -93,6 +93,7 @@ import { CallbackFnEditor } from "./form/callbackFn";
 import { FormBuilder } from "./formBuilder";
 
 import { removeEmptyObjects, getValueByDotNotation } from "../utility/objects";
+import { shouldApplyDefaultValue, findFieldById } from "../utility/fieldLogic";
 import { Visibility } from "@mui/icons-material";
 
 interface WidgetWizardProps {
@@ -336,6 +337,11 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
         value = "draft";
       }
 
+      // If no value exists and field has defaultValue, use it
+      if (value === undefined && field.defaultValue !== undefined) {
+        value = field.defaultValue;
+      }
+
       setFormValues((prevState) => ({
         ...prevState,
         [id]: value,
@@ -564,19 +570,13 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
             [id]: true,
           }));
 
-          // Set default value for contentRank when recommendation type is selected
-          const dependentField = fields.find((f) => f.id === id);
-          if (dependentField?.id === "contentRank") {
-            setFormValues((prevFormValues) => {
-              // Only set default if not already set
-              if (prevFormValues[id] === undefined) {
-                return {
-                  ...prevFormValues,
-                  [id]: "affinity",
-                };
-              }
-              return prevFormValues;
-            });
+          // Set default value for fields that define one
+          const dependentField = findFieldById(fields, id);
+          if (shouldApplyDefaultValue(dependentField, formValues[id])) {
+            setFormValues((prevFormValues) => ({
+              ...prevFormValues,
+              [id]: dependentField.defaultValue,
+            }));
           }
         });
       }

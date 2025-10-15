@@ -97,6 +97,7 @@ export interface Field {
   hidden: boolean;
   support?: string[];
   render: string;
+  defaultValue?: any;
   fieldsToShow?: string[];
   dependencies?: {
     value: string | boolean;
