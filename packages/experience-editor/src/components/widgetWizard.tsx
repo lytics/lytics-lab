@@ -337,11 +337,6 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
         value = "draft";
       }
 
-      // If no value exists and field has defaultValue, use it
-      if (value === undefined && field.defaultValue !== undefined) {
-        value = field.defaultValue;
-      }
-
       setFormValues((prevState) => ({
         ...prevState,
         [id]: value,

@@ -43,19 +43,6 @@ export default defineWorkspace([
 ]);
 ```
 
-### Current Test Coverage
-
-#### Experience Editor Package
-
-- **39 tests** (27 unit + 12 component)
-- **Test files:**
-  - `src/utility/fieldLogic.test.ts` - Field logic utilities
-  - `src/components/form/radioGroup.test.tsx` - RadioGroup component
-
-See
-[`packages/experience-editor/TEST_README.md`](./packages/experience-editor/TEST_README.md)
-for package-specific details.
-
 ## Adding Tests to a New Package
 
 ### 1. Add vitest.config.ts to your package
