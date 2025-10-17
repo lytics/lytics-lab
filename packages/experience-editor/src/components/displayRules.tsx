@@ -28,13 +28,21 @@ import {
   hideAfterActionConfirmHideDuration,
   hideAfterActionCancelHideCount,
   hideAfterActionCancelHideDuration,
+  dateRangeStart,
+  dateRangeEnd,
+  dateRangeIndefinite,
 } from "../data/pfa-fields";
+import { DatePickerInput } from "./form/datePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { Checkbox, FormGroup, Box, FormControlLabel } from "@mui/material";
 
 interface DisplayRulesSectionProps {
   formValues: { [key: string]: string };
   isFieldSet: (id: string) => boolean;
   handleChange: (id: string, value: string) => void;
   formFieldVisibility: { [key: string]: boolean };
+  formFieldDisabled: { [key: string]: boolean };
   spacing?: number;
 }
 
@@ -42,12 +50,13 @@ export const DisplayRulesSection: React.FC<DisplayRulesSectionProps> = ({
   formValues,
   handleChange,
   formFieldVisibility,
+  formFieldDisabled,
   spacing = 3,
   isFieldSet,
 }) => {
   const fieldValueContains = (
     field: string,
-    value: string | string[]
+    value: string | string[],
   ): boolean => {
     const values = Array.isArray(value) ? value : [value];
     return values.some((v) => {
@@ -115,7 +124,7 @@ export const DisplayRulesSection: React.FC<DisplayRulesSectionProps> = ({
                         type="number"
                         visible={fieldValueContains(
                           displayConditions.id,
-                          hideAfter.id
+                          hideAfter.id,
                         )}
                         formValues={formValues}
                         handleChange={handleChange}
@@ -127,7 +136,7 @@ export const DisplayRulesSection: React.FC<DisplayRulesSectionProps> = ({
                         type="number"
                         visible={fieldValueContains(
                           displayConditions.id,
-                          pageVisits.id
+                          pageVisits.id,
                         )}
                         formValues={formValues}
                         handleChange={handleChange}
@@ -139,7 +148,7 @@ export const DisplayRulesSection: React.FC<DisplayRulesSectionProps> = ({
                         type="number"
                         visible={fieldValueContains(
                           displayConditions.id,
-                          scrollPercentageToDisplay.id
+                          scrollPercentageToDisplay.id,
                         )}
                         formValues={formValues}
                         handleChange={handleChange}
@@ -151,7 +160,7 @@ export const DisplayRulesSection: React.FC<DisplayRulesSectionProps> = ({
                         type="number"
                         visible={fieldValueContains(
                           displayConditions.id,
-                          showDelay.id
+                          showDelay.id,
                         )}
                         formValues={formValues}
                         handleChange={handleChange}
@@ -162,7 +171,7 @@ export const DisplayRulesSection: React.FC<DisplayRulesSectionProps> = ({
                         field={showOnExitIntent}
                         visible={fieldValueContains(
                           displayConditions.id,
-                          showOnExitIntent.id
+                          showOnExitIntent.id,
                         )}
                         formValues={formValues}
                         handleChange={handleChange}
@@ -353,6 +362,57 @@ export const DisplayRulesSection: React.FC<DisplayRulesSectionProps> = ({
                       />
                     </ConditionGroup>
                   </Stack>
+                </Stack>
+              )}
+
+              {fieldValueContains(displayConditions.id, "dateRange") && (
+                <Stack spacing={3}>
+                  <SectionHeader
+                    variation="secondary"
+                    headline={"Date range to display the widget?"}
+                    description={
+                      "Configure when to start and stop displaying the widget."
+                    }
+                  />
+                  <Stack spacing={spacing} direction={"row"}>
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                      <DatePickerInput
+                        field={dateRangeStart}
+                        visible={formFieldVisibility[dateRangeStart.id]}
+                        disabled={formFieldDisabled[dateRangeStart.id]}
+                        formValues={formValues}
+                        handleChange={handleChange}
+                      />
+                    </LocalizationProvider>
+                    <Box sx={{ alignSelf: "center" }}>to</Box>
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                      <DatePickerInput
+                        field={dateRangeEnd}
+                        visible={formFieldVisibility[dateRangeEnd.id]}
+                        disabled={formFieldDisabled[dateRangeEnd.id]}
+                        formValues={formValues}
+                        handleChange={handleChange}
+                      />
+                    </LocalizationProvider>
+                  </Stack>
+                  <FormGroup sx={{ display: "block" }}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={
+                            formValues[dateRangeIndefinite.id] === "true"
+                          }
+                          onChange={(event) =>
+                            handleChange(
+                              dateRangeIndefinite.id,
+                              `${event.target.checked}`,
+                            )
+                          }
+                        />
+                      }
+                      label={dateRangeIndefinite.label}
+                    />
+                  </FormGroup>
                 </Stack>
               )}
             </Stack>

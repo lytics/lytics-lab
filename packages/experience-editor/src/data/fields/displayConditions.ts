@@ -42,6 +42,12 @@ const OptionShowOnExitIntent: SelectOption = {
   type: "null",
 };
 
+const OptionDateRange: SelectOption = {
+  label: "Define date range to display the widget?",
+  value: "dateRange",
+  type: "null",
+};
+
 export const DisplayConditions: Field = {
   id: "displayConditions",
   label: "Display Conditions",
@@ -59,6 +65,7 @@ export const DisplayConditions: Field = {
     OptionImpression,
     OptionHideAfterAction,
     OptionShowOnExitIntent,
+    OptionDateRange,
   ],
   dependencies: [
     {
@@ -102,6 +109,10 @@ export const DisplayConditions: Field = {
         "hideAfterActionCancelHideCount",
         "hideAfterActionCancelHideDuration",
       ],
+    },
+    {
+      value: "dateRange",
+      fieldsToShow: ["dateRangeStart", "dateRangeEnd", "dateRangeIndefinite"],
     },
   ],
   render: "details.displayConditions",
