@@ -84,3 +84,33 @@ export const ContentDisplayDescriptionLimit: Field = {
   hidden: true,
   render: "config.recommend.display.limit",
 };
+
+export const ContentRank: Field = {
+  id: "contentRank",
+  label: "Content Rank",
+  description: "Select the ranking strategy for content recommendations",
+  type: "string",
+  method: "radio",
+  required: false,
+  hidden: true,
+  render: "config.recommend.rank",
+  defaultValue: "affinity",
+  options: [
+    {
+      label: "Highest Affinity",
+      value: "affinity",
+    },
+    {
+      label: "Most Popular",
+      value: "popular",
+    },
+    {
+      label: "Most Recently Published",
+      value: "recent",
+    },
+    {
+      label: "Most Recent Interaction",
+      value: "last_interaction",
+    },
+  ],
+};

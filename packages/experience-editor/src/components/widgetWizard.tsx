@@ -61,6 +61,7 @@ import {
   audience,
   formElements,
   contentCollection,
+  contentRank,
   contentVisited,
   contentShuffle,
   contentDisplayTitle,
@@ -92,6 +93,7 @@ import { CallbackFnEditor } from "./form/callbackFn";
 import { FormBuilder } from "./formBuilder";
 
 import { removeEmptyObjects, getValueByDotNotation } from "../utility/objects";
+import { shouldApplyDefaultValue, findFieldById } from "../utility/fieldLogic";
 import { Visibility } from "@mui/icons-material";
 
 interface WidgetWizardProps {
@@ -237,6 +239,7 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
     audience,
     formElements,
     contentCollection,
+    contentRank,
     contentVisited,
     contentShuffle,
     contentDisplayTitle,
@@ -576,6 +579,15 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
             ...prevVisibility,
             [id]: true,
           }));
+
+          // Set default value for fields that define one
+          const dependentField = findFieldById(fields, id);
+          if (shouldApplyDefaultValue(dependentField, formValues[id])) {
+            setFormValues((prevFormValues) => ({
+              ...prevFormValues,
+              [id]: dependentField.defaultValue,
+            }));
+          }
         });
 
         dependencyMatch.fieldsToDisable?.forEach((id) => {

@@ -76,6 +76,7 @@ import {
   ContentDisplayImage,
   ContentDisplayDescription,
   ContentDisplayDescriptionLimit,
+  ContentRank,
 } from "./fields/recommend";
 import {
   TargetFlow,
@@ -101,6 +102,7 @@ export interface Field {
   hidden: boolean;
   support?: string[];
   render?: string;
+  defaultValue?: any;
   dependencies?: {
     value: string | boolean;
     fieldsToShow?: string[];
@@ -205,6 +207,7 @@ export const audienceWithOptions = AudienceWithOptions;
 export const formElements = FormElements;
 export const contentCollection = ContentCollection;
 export const contentCollectionWithOptions = ContentCollectionWithOptions;
+export const contentRank = ContentRank;
 export const contentVisited = ContentVisited;
 export const contentShuffle = ContentShuffle;
 export const contentDisplayTitle = ContentDisplayTitle;
