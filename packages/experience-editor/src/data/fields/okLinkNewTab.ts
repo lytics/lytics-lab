@@ -11,8 +11,7 @@ export const OKLinkNewTab: Field = {
   render: "details.cta.newTab",
   translate: {
     render: "config.confirmAction.callback",
-    renderValue: function (newTab, config) {
-      return renderConfirmActionCallbackLink(config.details.cta?.url, newTab);
-    },
+    renderValue: (newTab, config) =>
+      renderConfirmActionCallbackLink(config.details.cta?.url, newTab),
   },
 };

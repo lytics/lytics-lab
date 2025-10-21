@@ -1,6 +1,6 @@
-import r2wc from "react-to-webcomponent";
 import React from "react";
 import * as ReactDOM from "react-dom/client";
+import r2wc from "react-to-webcomponent";
 import WidgetWizard from "./src/App";
 
 const LyticswidgetWizardWC = r2wc(WidgetWizard, React, ReactDOM, {

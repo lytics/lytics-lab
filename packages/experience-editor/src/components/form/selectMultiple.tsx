@@ -1,14 +1,14 @@
-import React, { useEffect } from "react";
 import {
   Checkbox,
-  ListItemText,
   FormControl,
   FormHelperText,
   InputLabel,
+  ListItemText,
   MenuItem,
   Select,
   SelectChangeEvent,
 } from "@mui/material";
+import React, { useEffect } from "react";
 import { Field } from "../../data/pfa-fields";
 
 export interface SelectMultipleInputProps {
@@ -20,7 +20,7 @@ export interface SelectMultipleInputProps {
 }
 
 export const SelectMultipleInput: React.FC<SelectMultipleInputProps> = (
-  selectMultipleInputProps
+  selectMultipleInputProps,
 ) => {
   const { field, formValues, handleChange, position, visible } =
     selectMultipleInputProps;
@@ -38,7 +38,7 @@ export const SelectMultipleInput: React.FC<SelectMultipleInputProps> = (
   }, [formValues]);
 
   const handleSelectCheckChange = (
-    event: SelectChangeEvent<typeof activeConditions>
+    event: SelectChangeEvent<typeof activeConditions>,
   ) => {
     const {
       target: { value },

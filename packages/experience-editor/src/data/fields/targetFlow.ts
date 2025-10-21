@@ -34,7 +34,7 @@ export const TargetFlow: Field = {
 };
 
 export const TargetFlowWithOptions = (flows: Flow[]) => {
-  let payload = TargetFlow;
+  const payload = TargetFlow;
   payload.options = flows.reduce((acc, flow) => {
     acc.push({ label: flow.label, value: flow.value });
     return acc;
@@ -43,7 +43,7 @@ export const TargetFlowWithOptions = (flows: Flow[]) => {
 };
 
 export const TargetFlowVersionWithOptions = (flows: Flow[], id: string) => {
-  let payload = TargetFlowVersion;
+  const payload = TargetFlowVersion;
   payload.options = flows
     .find((flow) => flow.value === id)
     .versions.map((v) => ({
@@ -58,7 +58,7 @@ export const TargetFlowStepWithOptions = (
   id: string,
   version: string,
 ) => {
-  let payload = TargetFlowStep;
+  const payload = TargetFlowStep;
   payload.options = flows
     .find((flow) => flow.value === id)
     .versions.find((v) => v.version.toString() === version).steps;

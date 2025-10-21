@@ -15,7 +15,7 @@ const OptionBar: SelectOption = {
   value: "bar",
 };
 
-const OptionButton: SelectOption = {
+const _OptionButton: SelectOption = {
   label: "Button",
   value: "button",
 };
@@ -75,7 +75,7 @@ export const Layout: Field = {
 };
 
 export const LayoutWithOptions: (type: string) => Field = (type: string) => {
-  let payload = Layout;
+  const payload = Layout;
   payload.options = getSelectOptions(type);
   return payload;
 };

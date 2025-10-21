@@ -1,24 +1,21 @@
+import { Message } from "@mui/icons-material";
+import { Box } from "@mui/material";
 import React from "react";
-import { Box, Stack } from "@mui/material";
-
+import { CheckboxInput } from "../components/form/checkbox";
+import { TextInput } from "../components/form/input";
+import { NumberedSection } from "../components/form/numberedSection";
+import { TextAreaInput } from "../components/form/textarea";
 import {
+  cancelMessage,
+  cancelShow,
   headline,
   message,
-  okShow,
-  okMessage,
-  cancelShow,
-  cancelMessage,
-  okShowLink,
-  okLinkURL,
   okLinkNewTab,
+  okLinkURL,
+  okMessage,
+  okShow,
+  okShowLink,
 } from "../data/pfa-fields";
-
-import { Message } from "@mui/icons-material";
-
-import { TextAreaInput } from "../components/form/textarea";
-import { TextInput } from "../components/form/input";
-import { CheckboxInput } from "../components/form/checkbox";
-import { NumberedSection } from "../components/form/numberedSection";
 import { ConditionGroup } from "./form/conditionGroup";
 
 interface MessagingSectionProps {

@@ -1,9 +1,10 @@
 /// <reference types="vite/client"/>
 /// <reference types="vitest/globals"/>
-import { describe, expect, test } from "vitest";
+
+import { composeStories, Meta, StoryFn } from "@storybook/react";
 import { render, waitForElementToBeRemoved } from "@testing-library/react";
-import { Meta, StoryFn, composeStories } from "@storybook/react";
 import { parseISO } from "date-fns";
+import { describe, expect, test } from "vitest";
 import * as globalConfig from "./preview";
 
 vi?.useFakeTimers().setSystemTime(parseISO("2020-01-01"));
@@ -23,13 +24,13 @@ describe("Storybook Snapshots", async () => {
     modules
       .filter((module) => !/skip-storyshots/.test(module.default.title!))
       .map((module) => [module.default.title!, module]),
-  )("%s", (moduleName, module) => {
+  )("%s", (_moduleName, module) => {
     test.each(
       Object.values(composeStories(module, globalConfig)).map((Story) => [
         Story.storyName!,
         Story,
       ]),
-    )("%s", async (storyName, Story) => {
+    )("%s", async (_storyName, Story) => {
       const { container } = await render(Story({}));
       if (container.querySelector(".MuiCircularProgress-indeterminate")) {
         await waitForElementToBeRemoved(() =>

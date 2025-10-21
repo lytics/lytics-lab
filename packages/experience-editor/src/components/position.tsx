@@ -1,21 +1,21 @@
-import React from "react";
-import { Stack } from "@mui/material";
 import { ControlCamera } from "@mui/icons-material";
-import { TextInput } from "../components/form/input";
-import { SelectInput } from "../components/form/select";
-import { NumberedSection } from "../components/form/numberedSection";
+import { Stack } from "@mui/material";
+import React from "react";
 import { ConditionGroup } from "../components/form/conditionGroup";
+import { TextInput } from "../components/form/input";
+import { NumberedSection } from "../components/form/numberedSection";
+import { SelectInput } from "../components/form/select";
 import {
-  type,
+  image,
   layout,
   layoutWithOptions,
-  image,
-  positionSelector,
-  position,
-  positionWithOptions,
   origin,
   originWithOptions,
+  position,
+  positionSelector,
+  positionWithOptions,
   pushDown,
+  type,
 } from "../data/pfa-fields";
 
 interface PositionSectionProps {

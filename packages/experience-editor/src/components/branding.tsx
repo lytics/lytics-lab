@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { SelectInput } from "../components/form/select";
-import { ColorInput } from "../components/form/color";
-import { NumberedSection } from "../components/form/numberedSection";
-import { ColorPicker } from "../components/form/colorPicker";
 import { Home } from "@mui/icons-material";
+import React from "react";
+import { ColorInput } from "../components/form/color";
+import { ColorPicker } from "../components/form/colorPicker";
+import { NumberedSection } from "../components/form/numberedSection";
+import { SelectInput } from "../components/form/select";
 
 import {
-  theme,
-  backgroundColor,
-  textColor,
-  headlineColor,
-  closeColor,
   actionBackgroundColor,
   actionTextColor,
+  backgroundColor,
   cancelBackgroundColor,
   cancelTextColor,
+  closeColor,
   fieldBackgroundColor,
+  headlineColor,
+  textColor,
+  theme,
 } from "../data/pfa-fields";
 
 interface BrandingSectionProps {

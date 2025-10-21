@@ -1,14 +1,4 @@
 import { Field } from "../pfa-fields";
-import {
-  contentCollection,
-  contentRank,
-  contentVisited,
-  contentShuffle,
-  contentDisplayTitle,
-  contentDisplayImage,
-  contentDisplayDescription,
-  contentDisplayDescriptionLimit,
-} from "../pfa-fields";
 
 export const Type: Field = {
   id: "type",

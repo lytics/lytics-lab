@@ -1,4 +1,3 @@
-import React from "react";
 import {
   FormControl,
   FormHelperText,
@@ -6,6 +5,7 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
+import React from "react";
 import { Field } from "../../data/pfa-fields";
 
 export interface SelectInputProps {
@@ -39,7 +39,7 @@ export const SelectInput: React.FC<SelectInputProps> = ({
             required={field.required}
             renderValue={(selected) => {
               const selectedOption = field.options?.find(
-                (option) => option.value === selected
+                (option) => option.value === selected,
               );
               return selectedOption?.label || "";
             }}

@@ -1,6 +1,6 @@
 import { Field } from "../pfa-fields";
-import { Audience } from "./audience";
 import { AttributeRule } from "./attributeRule";
+import { Audience } from "./audience";
 import { PersonalizationKey } from "./personalizationKeys";
 
 export const TargetMethod: Field = {

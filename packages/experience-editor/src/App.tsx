@@ -1,9 +1,9 @@
-import React from "react";
 import { Box } from "@mui/material";
-import WidgetWizard from "./components/widgetWizard";
-import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
-import { LightBlueGray, DarkestBlueGray } from "./utility/colors";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import type {} from "@mui/x-date-pickers/themeAugmentation";
+import React from "react";
+import WidgetWizard from "./components/widgetWizard";
+import { DarkestBlueGray, LightBlueGray } from "./utility/colors";
 
 const theme = createTheme({
   components: {
@@ -135,7 +135,7 @@ const CoreWidgetWizard: React.FC<CoreWidgetWizardProps> = ({
   // url decode the pathfora config
   try {
     pathforaconfig = atob(pathforaconfig);
-  } catch (e) {
+  } catch (_e) {
     pathforaconfig = "";
   }
 

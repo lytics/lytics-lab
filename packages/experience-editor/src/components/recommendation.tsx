@@ -1,27 +1,25 @@
-import React, { useState, useEffect } from "react";
-
+import { Recommend } from "@mui/icons-material";
+import { Stack } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import {
   contentCollection,
   contentCollectionWithOptions,
-  contentRank,
-  contentVisited,
-  contentShuffle,
-  contentDisplayTitle,
-  contentDisplayImage,
   contentDisplayDescription,
   contentDisplayDescriptionLimit,
+  contentDisplayImage,
+  contentDisplayTitle,
+  contentRank,
+  contentShuffle,
+  contentVisited,
   Field,
   SelectOption,
 } from "../data/pfa-fields";
-
+import { CheckboxInput } from "./form/checkbox";
 import { ConditionGroup } from "./form/conditionGroup";
 import { TextInput } from "./form/input";
-import { SelectInput } from "./form/select";
-import { CheckboxInput } from "./form/checkbox";
-import { RadioGroupInput } from "./form/radioGroup";
 import { NumberedSection } from "./form/numberedSection";
-import { Recommend } from "@mui/icons-material";
-import { Stack } from "@mui/material";
+import { RadioGroupInput } from "./form/radioGroup";
+import { SelectInput } from "./form/select";
 
 interface RecommendationSectionProps {
   formValues: { [key: string]: string };
@@ -38,7 +36,7 @@ export const RecommendationSection: React.FC<RecommendationSectionProps> = ({
   spacing,
   collections,
 }) => {
-  const [collectionField, setCollectionField] = useState<Field | null>(null);
+  const [_collectionField, setCollectionField] = useState<Field | null>(null);
 
   useEffect(() => {
     setCollectionField(contentCollectionWithOptions(collections));

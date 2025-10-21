@@ -1,9 +1,8 @@
+import { Typography } from "@mui/material";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import React from "react";
 import { Field } from "../../data/pfa-fields";
-import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { helperTextStyles } from "../styles/inputLabel";
-import { Typography } from "@mui/material";
-import { parseISO } from "date-fns";
 
 export interface DatePickerInputProps {
   field: Field;

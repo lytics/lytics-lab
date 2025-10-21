@@ -41,7 +41,7 @@ export class PathforaHandler {
   }
 
   loadJSTAGLibrary(accountid: string): Promise<void> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, _reject) => {
       const jstagShim = {
         config: {
           cid: [accountid],
@@ -50,7 +50,7 @@ export class PathforaHandler {
         getid: (callback: (id: string) => void) => {
           callback("test-lytics-uid");
         },
-        send: (stream: string, payload: any, callback: () => void) => {
+        send: (stream: string, _payload: any, _callback: () => void) => {
           console.log("(MOCK) Lytics JStag send request made.", stream);
         },
         getEntity: (callback: (entity: any) => void) => {
@@ -86,7 +86,7 @@ export class PathforaHandler {
         },
       };
 
-      var expires = new Date(new Date().valueOf() + 1000 * 60 * 60 * 1);
+      var expires = new Date(Date.now() + 1000 * 60 * 60 * 1);
       document.cookie =
         "test-seerid=test-lytics-uid; expires=" +
         expires.toUTCString() +
@@ -100,19 +100,19 @@ export class PathforaHandler {
 
   serializeWidget(widget: any): any {
     // confirmAction.callback
-    if (widget.config.confirmAction && widget.config.confirmAction.callback) {
+    if (widget.config.confirmAction?.callback) {
       widget.config.confirmAction.callback =
         widget.config.confirmAction.callback.toString();
     }
 
     // cancelAction.callback
-    if (widget.config.cancelAction && widget.config.cancelAction.callback) {
+    if (widget.config.cancelAction?.callback) {
       widget.config.cancelAction.callback =
         widget.config.cancelAction.callback.toString();
     }
 
     // closeAction.callback
-    if (widget.config.closeAction && widget.config.closeAction.callback) {
+    if (widget.config.closeAction?.callback) {
       widget.config.closeAction.callback =
         widget.config.closeAction.callback.toString();
     }
@@ -203,8 +203,8 @@ export class PathforaHandler {
   }
 
   testWidget(widget): void {
-    let config = widget.config;
-    let details = widget.details;
+    const config = widget.config;
+    const _details = widget.details;
 
     config.id = "test-widget";
 

@@ -1,24 +1,24 @@
-import React, { useEffect, useState } from "react";
-import {
-  Box,
-  Button,
-  Checkbox,
-  Chip,
-  FormGroup,
-  FormControlLabel,
-  IconButton,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
 import {
   ArrowCircleDown,
   ArrowCircleUp,
   Delete,
   Edit,
-  Save,
   EditNote,
+  Save,
 } from "@mui/icons-material";
+import {
+  Box,
+  Button,
+  Checkbox,
+  Chip,
+  FormControlLabel,
+  FormGroup,
+  IconButton,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { NumberedSection } from "../components/form/numberedSection";
 import { formElements as formElementsData } from "../data/pfa-fields";
 import { EmptyState } from "../utility/emptyState";
@@ -104,7 +104,7 @@ export const FormNodeEditor: React.FC<FormNodeEditorProps> = ({
   const handleOptionChange = (
     index: number,
     field: keyof FormValue,
-    value: string
+    value: string,
   ) => {
     const newOptions = options.map((option, i) => {
       if (i === index) {
@@ -124,7 +124,7 @@ export const FormNodeEditor: React.FC<FormNodeEditorProps> = ({
     setOptions(newOptions);
   };
 
-  const handleOpenToggle = (field: FormElement) => {
+  const handleOpenToggle = (_field: FormElement) => {
     setOpen(!open);
   };
 
@@ -484,7 +484,7 @@ export const FormBuilder: React.FC<FormBuilderProps> = ({
               message={"Add form elements using the buttons to the right."}
             />
           )}
-          {formElements.map((element, index) => (
+          {formElements.map((element, _index) => (
             <Box key={element.id}>
               {
                 <FormNodeEditor

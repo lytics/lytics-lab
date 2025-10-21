@@ -1,100 +1,96 @@
+import { Box, Button, Stack, Tab, Tabs } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { Box, Button, Stack, Tab, Tabs, Typography } from "@mui/material";
-
 import {
-  Field,
-  SelectOption,
-  type,
-  headline,
-  layout,
-  theme,
-  backgroundColor,
-  textColor,
-  headlineColor,
-  closeColor,
   actionBackgroundColor,
   actionTextColor,
+  attributeRule,
+  audience,
+  backgroundColor,
+  cancelAction,
   cancelBackgroundColor,
-  cancelTextColor,
-  fieldBackgroundColor,
-  message,
-  okShow,
-  okMessage,
-  cancelShow,
   cancelMessage,
-  image,
-  positionSelector,
-  position,
-  origin,
-  pushDown,
-  widgetTitle,
-  widgetDescription,
-  widgetSlug,
-  widgetStatus,
+  cancelShow,
+  cancelTextColor,
+  closeAction,
+  closeColor,
+  confirmAction,
+  contentCollection,
+  contentDisplayDescription,
+  contentDisplayDescriptionLimit,
+  contentDisplayImage,
+  contentDisplayTitle,
+  contentRank,
+  contentShuffle,
+  contentVisited,
+  dateRangeEnd,
+  dateRangeIndefinite,
+  dateRangeStart,
   displayConditions,
+  Field,
+  Flow,
+  fieldBackgroundColor,
+  formElements,
+  headline,
+  headlineColor,
   hideAfter,
-  pageVisits,
-  scrollPercentageToDisplay,
-  showDelay,
-  showOnExitIntent,
+  hideAfterActionCancelHideCount,
+  hideAfterActionCancelHideDuration,
+  hideAfterActionClosedHideCount,
+  hideAfterActionClosedHideDuration,
+  hideAfterActionConfirmHideCount,
+  hideAfterActionConfirmHideDuration,
+  image,
   impressionsGlobalDuration,
   impressionsGlobalSession,
   impressionsGlobalTotal,
   impressionsWidgetDuration,
   impressionsWidgetSession,
   impressionsWidgetTotal,
-  hideAfterActionClosedHideCount,
-  hideAfterActionClosedHideDuration,
-  hideAfterActionConfirmHideCount,
-  hideAfterActionConfirmHideDuration,
-  hideAfterActionCancelHideCount,
-  hideAfterActionCancelHideDuration,
-  dateRangeStart,
-  dateRangeEnd,
-  dateRangeIndefinite,
-  urlContains,
-  confirmAction,
-  cancelAction,
-  closeAction,
+  layout,
+  message,
+  okLinkNewTab,
+  okLinkURL,
+  okMessage,
+  okShow,
+  okShowLink,
   onInit,
   onLoad,
-  audience,
-  formElements,
-  contentCollection,
-  contentRank,
-  contentVisited,
-  contentShuffle,
-  contentDisplayTitle,
-  contentDisplayImage,
-  contentDisplayDescription,
-  contentDisplayDescriptionLimit,
-  targetMethod,
-  attributeRule,
-  Flow,
-  okLinkNewTab,
-  okShowLink,
-  okLinkURL,
+  origin,
+  pageVisits,
   personalizationKey,
+  position,
+  positionSelector,
+  pushDown,
+  SelectOption,
+  scrollPercentageToDisplay,
+  showDelay,
+  showOnExitIntent,
+  targetMethod,
+  textColor,
+  theme,
+  type,
+  urlContains,
+  widgetDescription,
+  widgetSlug,
+  widgetStatus,
+  widgetTitle,
 } from "../data/pfa-fields";
-
-import { TextAreaInput } from "./form/textarea";
-import { TextInput } from "./form/input";
-import { SelectInput } from "./form/select";
-import { SectionHeader } from "./form/sectionHeader";
-import { CodeEditor } from "./form/codeEditor";
-import { MessagingSection } from "./messaging";
-import { TargetingSection } from "./targeting";
-import { PositionSection } from "./position";
+import { findFieldById, shouldApplyDefaultValue } from "../utility/fieldLogic";
+import { getValueByDotNotation, removeEmptyObjects } from "../utility/objects";
+import { PathforaHandler } from "../utility/pathforaInterface";
 import { BrandingSection } from "./branding";
 import { DisplayRulesSection } from "./displayRules";
-import { RecommendationSection } from "./recommendation";
-import { PathforaHandler } from "../utility/pathforaInterface";
 import { CallbackFnEditor } from "./form/callbackFn";
+import { CodeEditor } from "./form/codeEditor";
+import { TextInput } from "./form/input";
+import { SectionHeader } from "./form/sectionHeader";
+import { SelectInput } from "./form/select";
+import { TextAreaInput } from "./form/textarea";
 import { FormBuilder } from "./formBuilder";
-
-import { removeEmptyObjects, getValueByDotNotation } from "../utility/objects";
-import { shouldApplyDefaultValue, findFieldById } from "../utility/fieldLogic";
-import { Visibility } from "@mui/icons-material";
+import { MessagingSection } from "./messaging";
+import { PositionSection } from "./position";
+import { RecommendationSection } from "./recommendation";
+import { TargetingSection } from "./targeting";
 
 interface WidgetWizardProps {
   accountid: string;
@@ -168,7 +164,7 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
   const [pathfora, setPathfora] = useState<any>();
   const [audiences, setAudiences] = useState<SelectOption[]>([]);
   const [collections, setCollections] = useState<SelectOption[]>([]);
-  const [flows, setFlows] = useState<Flow[]>([]);
+  const [_flows, setFlows] = useState<Flow[]>([]);
   const [personalizationKeys, setPersonalizationKeys] = useState<
     SelectOption[]
   >([]);
@@ -318,7 +314,7 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
   }, [formValues]);
 
   const handlePathforaPreview = () => {
-    let config = JSON.parse(renderedConfig);
+    const config = JSON.parse(renderedConfig);
     const widget = pathfora?.deserializeWidget(config);
     pathfora?.testWidget(widget);
   };
@@ -355,17 +351,17 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
     });
   };
 
-  const handleEditorTypeTabChange = (event, newValue) => {
+  const handleEditorTypeTabChange = (_event, newValue) => {
     setEditorTypeTabValue(newValue);
   };
 
-  const handleBasicEditorTabChange = (event, newValue) => {
+  const handleBasicEditorTabChange = (event, _newValue) => {
     const id = event.target.id;
     const value = tabToValueMapping[id];
     setBasicEditorTabValue(value);
   };
 
-  const handleAdvancedEditorTabChange = (event, newValue) => {
+  const handleAdvancedEditorTabChange = (_event, newValue) => {
     setAdvancedEditorTabValue(newValue);
   };
 
@@ -640,7 +636,7 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
     }
     let callback;
     try {
-      callback = Function('"use strict";return (' + value + ")")();
+      callback = Function(`"use strict";return (${value})`)();
     } catch (error) {
       console.warn("Invalid function:", error);
       return;
@@ -671,7 +667,7 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
     }));
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = (_event: React.FormEvent<HTMLFormElement>): void => {
     // no op for now
   };
 

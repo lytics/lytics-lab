@@ -13,7 +13,7 @@ export const Audience: Field = {
 };
 
 export const AudienceWithOptions = (audiences: SelectOption[]) => {
-  let payload = Audience;
+  const payload = Audience;
   payload.options = audiences;
   return payload;
 };

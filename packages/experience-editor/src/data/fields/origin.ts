@@ -38,7 +38,7 @@ export const Origin: Field = {
 };
 
 export const OriginWithOptions: (type: string) => Field = (type: string) => {
-  let payload = Origin;
+  const payload = Origin;
   payload.options = getSelectOptions(type);
   return payload;
 };

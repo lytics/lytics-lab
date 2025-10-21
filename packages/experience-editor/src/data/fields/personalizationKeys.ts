@@ -14,7 +14,7 @@ export const PersonalizationKey: Field = {
 };
 
 export const PersonalizationKeyWithOptions = (pk: SelectOption[]) => {
-  let payload = PersonalizationKey;
+  const payload = PersonalizationKey;
   payload.options = pk;
   return payload;
 };

@@ -94,7 +94,7 @@ export const Position: Field = {
 };
 
 export const PositionWithOptions: (type: string) => Field = (type: string) => {
-  let payload = Position;
+  const payload = Position;
   payload.options = getSelectOptions(type);
   return payload;
 };

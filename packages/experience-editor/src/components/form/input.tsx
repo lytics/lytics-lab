@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
 import { TextField } from "@mui/material";
+import React, { useEffect } from "react";
 import { Field } from "../../data/pfa-fields";
-import { helperTextStyles } from "../styles/inputLabel";
 
 export interface TextInputProps {
   field: Field;
