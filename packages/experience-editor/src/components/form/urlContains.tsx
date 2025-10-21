@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import DeleteIcon from "@mui/icons-material/Delete";
 import {
   Box,
   Button,
@@ -10,7 +10,7 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
+import React, { useEffect, useState } from "react";
 import { Field } from "../../data/pfa-fields";
 import { PinkHighlight } from "../../utility/colors";
 
@@ -88,7 +88,8 @@ export const URLContainsBuilder: React.FC<MatchValueFormProps> = ({
             Enter a value that should match the domain and path of your target
             URL. For example, entering{" "}
             <b style={{ color: PinkHighlight }}>test.com/my/path</b> will match
-            https:<b style={{ color: PinkHighlight }}>//test.com/my/path</b>
+            https:
+            <b style={{ color: PinkHighlight }}>{"//"}test.com/my/path</b>
             ?query=param
           </>
         );

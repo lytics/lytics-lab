@@ -232,7 +232,7 @@ export class PathforaHandler {
       config.displayConditions.scrollPercentageToDisplay = 0;
     }
 
-    let module;
+    let module: any;
 
     switch (widget.details.type) {
       case "message":

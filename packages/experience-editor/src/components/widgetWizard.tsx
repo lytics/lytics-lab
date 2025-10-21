@@ -301,8 +301,7 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
   // update source fields when any value changes
   useEffect(() => {
     checkSourceLink();
-  }),
-    [formValues];
+  }, [formValues]);
 
   useEffect(() => {
     const editConfig = document.getElementById(
@@ -407,7 +406,7 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
 
   const renderConfiguration = () => {
     let config = {};
-    let renderedConfigObject;
+    let renderedConfigObject: any;
 
     try {
       renderedConfigObject = JSON.parse(renderedConfig);
@@ -634,7 +633,7 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
     if (!value) {
       return false;
     }
-    let callback;
+    let callback: any;
     try {
       callback = Function(`"use strict";return (${value})`)();
     } catch (error) {
@@ -655,7 +654,6 @@ const WidgetWizard: React.FC<WidgetWizardProps> = ({
       const callbackFn = renderCallbackFunction(value);
       if (!callbackFn) {
         throw new Error("Callback function is not defined.");
-        return;
       }
 
       callbackFnString = callbackFn.toString();

@@ -30,7 +30,6 @@ export const MessagingSection: React.FC<MessagingSectionProps> = ({
   formValues,
   handleChange,
   formFieldVisibility,
-  spacing,
   isFieldSet,
 }) => {
   return (

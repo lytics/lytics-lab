@@ -22,8 +22,7 @@ export interface SelectMultipleInputProps {
 export const SelectMultipleInput: React.FC<SelectMultipleInputProps> = (
   selectMultipleInputProps,
 ) => {
-  const { field, formValues, handleChange, position, visible } =
-    selectMultipleInputProps;
+  const { field, formValues, handleChange, visible } = selectMultipleInputProps;
 
   const [activeConditions, setActiveConditions] = React.useState<string[]>([]);
 
