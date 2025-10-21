@@ -19,7 +19,6 @@ export const TargetFlowVersion: Field = {
   hidden: true,
   type: "string",
   method: "select",
-  fieldsToShow: [TargetFlowStep.id],
   render: "details.target.flow.version",
 };
 
@@ -31,7 +30,6 @@ export const TargetFlow: Field = {
   hidden: true,
   type: "string",
   method: "select",
-  fieldsToShow: [TargetFlowVersion.id],
   render: "details.target.flow.id",
 };
 

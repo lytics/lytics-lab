@@ -6,8 +6,9 @@
     "esModuleInterop": true,
     "allowJs": true,
     "outDir": "./dist",
-    "moduleResolution": "node",
-    "jsx": "react-jsx"
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "skipLibCheck": true
   },
   "include": ["src/**/*"]
 }

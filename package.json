@@ -82,7 +82,9 @@
     "minimist": "^1.2.8",
     "qs": "^6.11.2",
     "string-width": "^4.2.0",
-    "wrap-ansi": "^7.0.0"
+    "wrap-ansi": "^7.0.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0"
   },
   "volta": {
     "node": "22.20.0",
