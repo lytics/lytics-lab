@@ -40,6 +40,7 @@
     "chromatic": "chromatic"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.2.6",
     "@codemirror/lang-javascript": "^6.2.2",
     "@codemirror/view": "^6.32.0",
     "@emotion/react": "^11.13.0",
