@@ -1,24 +1,24 @@
-import React, { useEffect, useState } from "react";
-import {
-  Box,
-  Button,
-  Checkbox,
-  Chip,
-  FormGroup,
-  FormControlLabel,
-  IconButton,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
 import {
   ArrowCircleDown,
   ArrowCircleUp,
   Delete,
   Edit,
-  Save,
   EditNote,
+  Save,
 } from "@mui/icons-material";
+import {
+  Box,
+  Button,
+  Checkbox,
+  Chip,
+  FormControlLabel,
+  FormGroup,
+  IconButton,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
+import React, { useEffect, useId, useState } from "react";
 import { NumberedSection } from "../components/form/numberedSection";
 import { formElements as formElementsData } from "../data/pfa-fields";
 import { EmptyState } from "../utility/emptyState";
@@ -58,6 +58,9 @@ export const FormNodeEditor: React.FC<FormNodeEditorProps> = ({
   onShift,
   onDelete,
 }): JSX.Element => {
+  const nameId = useId();
+  const labelId = useId();
+  const placeholderId = useId();
   const [options, setOptions] = useState<FormValue[]>([]);
   const [label, setLabel] = useState<string>("");
   const [placeholder, setPlaceholder] = useState<string>("");
@@ -104,7 +107,7 @@ export const FormNodeEditor: React.FC<FormNodeEditorProps> = ({
   const handleOptionChange = (
     index: number,
     field: keyof FormValue,
-    value: string
+    value: string,
   ) => {
     const newOptions = options.map((option, i) => {
       if (i === index) {
@@ -124,7 +127,7 @@ export const FormNodeEditor: React.FC<FormNodeEditorProps> = ({
     setOptions(newOptions);
   };
 
-  const handleOpenToggle = (field: FormElement) => {
+  const handleOpenToggle = (_field: FormElement) => {
     setOpen(!open);
   };
 
@@ -265,7 +268,7 @@ export const FormNodeEditor: React.FC<FormNodeEditorProps> = ({
           {/* Name input */}
           <Box flex={1}>
             <TextField
-              id="name"
+              id={nameId}
               label="Name"
               value={name}
               variant="outlined"
@@ -285,7 +288,7 @@ export const FormNodeEditor: React.FC<FormNodeEditorProps> = ({
           {/* Label input */}
           <Box flex={1}>
             <TextField
-              id="label"
+              id={labelId}
               label="Label"
               value={label}
               variant="outlined"
@@ -300,7 +303,7 @@ export const FormNodeEditor: React.FC<FormNodeEditorProps> = ({
           {/* Placeholder input */}
           <Box flex={1}>
             <TextField
-              id="placeholder"
+              id={placeholderId}
               label="Placeholder"
               value={placeholder}
               variant="outlined"
@@ -335,7 +338,7 @@ export const FormNodeEditor: React.FC<FormNodeEditorProps> = ({
               <Box>
                 <Stack direction={"column"} spacing={2}>
                   {options.map((option, index) => (
-                    <Stack direction={"row"} spacing={2}>
+                    <Stack key={index} direction={"row"} spacing={2}>
                       <TextField
                         id={`label`}
                         label="Label"
@@ -372,9 +375,7 @@ export const FormNodeEditor: React.FC<FormNodeEditorProps> = ({
                 </Stack>
               </Box>
             </Stack>
-          ) : (
-            <></>
-          )}
+          ) : null}
         </>
       )}
     </Stack>
@@ -484,7 +485,7 @@ export const FormBuilder: React.FC<FormBuilderProps> = ({
               message={"Add form elements using the buttons to the right."}
             />
           )}
-          {formElements.map((element, index) => (
+          {formElements.map((element, _index) => (
             <Box key={element.id}>
               {
                 <FormNodeEditor

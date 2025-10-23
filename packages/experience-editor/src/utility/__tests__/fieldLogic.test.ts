@@ -1,6 +1,6 @@
-import { describe, it, expect } from "vitest";
-import { shouldApplyDefaultValue, findFieldById } from "../fieldLogic";
+import { describe, expect, it } from "vitest";
 import { Field } from "../../data/pfa-fields";
+import { findFieldById, shouldApplyDefaultValue } from "../fieldLogic";
 
 describe("fieldLogic", () => {
   describe("shouldApplyDefaultValue", () => {

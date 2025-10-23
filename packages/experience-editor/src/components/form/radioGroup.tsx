@@ -1,12 +1,12 @@
-import React from "react";
 import {
   FormControl,
-  FormLabel,
-  FormHelperText,
-  RadioGroup,
   FormControlLabel,
+  FormHelperText,
+  FormLabel,
   Radio,
+  RadioGroup,
 } from "@mui/material";
+import React from "react";
 import { Field } from "../../data/pfa-fields";
 
 export interface RadioGroupInputProps {

@@ -1,14 +1,14 @@
 import { Field } from "../pfa-fields";
 import {
-  BackgroundColor,
-  HeadlineColor,
-  TextColor,
-  CloseColor,
   ActionBackgroundColor,
   ActionTextColor,
+  BackgroundColor,
   CancelBackgroundColor,
   CancelTextColor,
+  CloseColor,
   FieldBackgroundColor,
+  HeadlineColor,
+  TextColor,
 } from "./colors";
 
 export const Theme: Field = {

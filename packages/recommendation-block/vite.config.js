@@ -1,7 +1,7 @@
 // vite.config.ts
 
-import { defineConfig } from "vite";
 import path from "path";
+import { defineConfig } from "vite";
 
 export default defineConfig({
   build: {
@@ -9,7 +9,7 @@ export default defineConfig({
       entry: path.resolve(__dirname, "src/index.ts"),
       formats: ["es"],
       name: "LyticsRecommendationBlock",
-      fileName: (format) => `lytics-recommendation-block.js`,
+      fileName: (_format) => `lytics-recommendation-block.js`,
     },
     outDir: "dist",
   },

@@ -1,23 +1,22 @@
+import { AdsClick, FindInPage } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
+import { ConditionGroup } from "../components/form/conditionGroup";
+import { NumberedSection } from "../components/form/numberedSection";
+import { SelectInput } from "../components/form/select";
 import {
   URLContainsBuilder,
   URLContainsItem,
 } from "../components/form/urlContains";
-import { SelectInput } from "../components/form/select";
-import { ConditionGroup } from "../components/form/conditionGroup";
 import {
-  type,
-  urlContains,
+  attributeRule,
   audienceWithOptions,
   Field,
-  SelectOption,
-  Flow,
-  targetMethod,
-  attributeRule,
   personalizationKeyWithOptions,
+  SelectOption,
+  targetMethod,
+  type,
+  urlContains,
 } from "../data/pfa-fields";
-import { NumberedSection } from "../components/form/numberedSection";
-import { AdsClick, FindInPage } from "@mui/icons-material";
 import { CallbackFnEditor } from "./form/callbackFn";
 
 interface TargetingSectionProps {

@@ -1,41 +1,46 @@
-import React from "react";
-import { Stack } from "@mui/material";
-import { SelectInput } from "../components/form/select";
-import { NumberedSection } from "../components/form/numberedSection";
-import { TextInput } from "../components/form/input";
-import { SelectMultipleInput } from "../components/form/selectMultiple";
-import { ConditionGroup } from "../components/form/conditionGroup";
-import { SectionHeader } from "../components/form/sectionHeader";
-import { EmptyState } from "../utility/emptyState";
 import { RemoveRedEye } from "@mui/icons-material";
 import {
-  layout,
+  Box,
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+  Stack,
+} from "@mui/material";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import React from "react";
+import { ConditionGroup } from "../components/form/conditionGroup";
+import { TextInput } from "../components/form/input";
+import { NumberedSection } from "../components/form/numberedSection";
+import { SectionHeader } from "../components/form/sectionHeader";
+import { SelectInput } from "../components/form/select";
+import { SelectMultipleInput } from "../components/form/selectMultiple";
+import {
+  dateRangeEnd,
+  dateRangeIndefinite,
+  dateRangeStart,
   displayConditions,
   hideAfter,
-  pageVisits,
-  scrollPercentageToDisplay,
-  showDelay,
-  showOnExitIntent,
+  hideAfterActionCancelHideCount,
+  hideAfterActionCancelHideDuration,
+  hideAfterActionClosedHideCount,
+  hideAfterActionClosedHideDuration,
+  hideAfterActionConfirmHideCount,
+  hideAfterActionConfirmHideDuration,
   impressionsGlobalDuration,
   impressionsGlobalSession,
   impressionsGlobalTotal,
   impressionsWidgetDuration,
   impressionsWidgetSession,
   impressionsWidgetTotal,
-  hideAfterActionClosedHideCount,
-  hideAfterActionClosedHideDuration,
-  hideAfterActionConfirmHideCount,
-  hideAfterActionConfirmHideDuration,
-  hideAfterActionCancelHideCount,
-  hideAfterActionCancelHideDuration,
-  dateRangeStart,
-  dateRangeEnd,
-  dateRangeIndefinite,
+  layout,
+  pageVisits,
+  scrollPercentageToDisplay,
+  showDelay,
+  showOnExitIntent,
 } from "../data/pfa-fields";
+import { EmptyState } from "../utility/emptyState";
 import { DatePickerInput } from "./form/datePicker";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { Checkbox, FormGroup, Box, FormControlLabel } from "@mui/material";
 
 interface DisplayRulesSectionProps {
   formValues: { [key: string]: string };

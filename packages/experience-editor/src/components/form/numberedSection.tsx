@@ -1,6 +1,6 @@
-import React from "react";
-import { Avatar, Box, Stack, Typography } from "@mui/material";
 import { Label } from "@mui/icons-material";
+import { Avatar, Stack, Typography } from "@mui/material";
+import React from "react";
 
 export interface NumberedSectionProps {
   icon: React.ReactNode;

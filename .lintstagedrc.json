@@ -1,4 +1,5 @@
 {
-  "{packages,entrypoints,web-components,viz-service}/**/*.{js,jsx,ts,tsx,json,css,scss,md}": "prettier --write",
-  "{packages,entrypoints,web-components,viz-service}/**/*.+(js,jsx,ts,tsx,json,css,scss,md)": "eslint"
+  "{packages}/**/*.{js,jsx,ts,tsx,json,css,md}": [
+    "biome check --write --no-errors-on-unmatched --files-ignore-unknown=true"
+  ]
 }

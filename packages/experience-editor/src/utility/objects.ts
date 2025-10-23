@@ -1,6 +1,6 @@
 export const removeEmptyObjects = (object: any) => {
   for (const key in object) {
-    if (object.hasOwnProperty(key)) {
+    if (Object.hasOwn(object, key)) {
       const value = object[key];
       if (value && typeof value === "object") {
         removeEmptyObjects(value);
@@ -22,5 +22,5 @@ export const removeEmptyObjects = (object: any) => {
 };
 
 export const getValueByDotNotation = (obj, path) => {
-  return path.split(".").reduce((acc, part) => acc && acc[part], obj);
+  return path.split(".").reduce((acc, part) => acc?.[part], obj);
 };

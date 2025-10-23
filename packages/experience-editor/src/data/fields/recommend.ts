@@ -13,7 +13,7 @@ export const ContentCollection: Field = {
 };
 
 export const ContentCollectionWithOptions = (collections: SelectOption[]) => {
-  let payload = ContentCollection;
+  const payload = ContentCollection;
   payload.options = collections;
   return payload;
 };

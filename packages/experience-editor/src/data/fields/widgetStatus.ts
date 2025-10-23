@@ -1,5 +1,4 @@
-import { Field } from "../pfa-fields";
-import { SelectOption } from "../pfa-fields";
+import { Field, SelectOption } from "../pfa-fields";
 
 const OptionDraft: SelectOption = {
   label: "Draft",

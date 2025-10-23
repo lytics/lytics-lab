@@ -1,5 +1,5 @@
+import { Checkbox, FormControlLabel } from "@mui/material";
 import React, { useEffect } from "react";
-import { FormControlLabel, Checkbox } from "@mui/material";
 import { Field } from "../../data/pfa-fields";
 
 export interface CheckboxInputProps {

@@ -1,7 +1,7 @@
-import { describe, it, expect, vi } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
-import { RadioGroupInput } from "../radioGroup";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { describe, expect, it, vi } from "vitest";
 import { Field } from "../../../data/pfa-fields";
+import { RadioGroupInput } from "../radioGroup";
 
 describe("RadioGroupInput", () => {
   const mockField: Field = {

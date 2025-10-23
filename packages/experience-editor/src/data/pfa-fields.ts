@@ -1,41 +1,38 @@
-import { Type } from "./fields/type";
-import { Headline } from "./fields/headline";
-import { Layout, LayoutWithOptions } from "./fields/layout";
-import { Theme } from "./fields/theme";
+import { AttributeRule } from "./fields/attributeRule";
+import { Audience, AudienceWithOptions } from "./fields/audience";
+import { CancelAction } from "./fields/callbacks/cancelAction";
+import { CloseAction } from "./fields/callbacks/closeAction";
+import { ConfirmAction } from "./fields/callbacks/confirmAction";
+import { OnInit } from "./fields/callbacks/onInit";
+import { OnLoad } from "./fields/callbacks/onLoad";
+import { CancelMessage } from "./fields/cancelMessage";
+import { CancelShow } from "./fields/cancelShow";
 import {
-  BackgroundColor,
-  TextColor,
-  HeadlineColor,
-  CloseColor,
   ActionBackgroundColor,
   ActionTextColor,
+  BackgroundColor,
   CancelBackgroundColor,
   CancelTextColor,
+  CloseColor,
   FieldBackgroundColor,
+  HeadlineColor,
+  TextColor,
 } from "./fields/colors";
-import { Message } from "./fields/msg";
-import { OKShow } from "./fields/okShow";
-import { OKShowLink } from "./fields/okShowLink";
-import { OKLinkURL } from "./fields/okLinkURL";
-import { OKLinkNewTab } from "./fields/okLinkNewTab";
-import { OKMessage } from "./fields/okMessage";
-import { CancelShow } from "./fields/cancelShow";
-import { CancelMessage } from "./fields/cancelMessage";
-import { Image } from "./fields/image";
-import { PositionSelector } from "./fields/positionSelector";
-import { Position, PositionWithOptions } from "./fields/position";
-import { Origin, OriginWithOptions } from "./fields/origin";
-import { PushDown } from "./fields/pushDown";
-import { WidgetTitle } from "./fields/widgetTitle";
-import { WidgetDescription } from "./fields/widgetDescription";
-import { WidgetSlug } from "./fields/widgetSlug";
-import { WidgetStatus } from "./fields/widgetStatus";
 import { DisplayConditions } from "./fields/displayConditions";
+import {
+  DateRangeEnd,
+  DateRangeIndefinite,
+  DateRangeStart,
+} from "./fields/displayConditions/dateRange";
 import { HideAfter } from "./fields/displayConditions/hideAfter";
-import { PageVisits } from "./fields/displayConditions/pageVisits";
-import { ScrollPercentageToDisplay } from "./fields/displayConditions/scrollPercentageToDisplay";
-import { ShowDelay } from "./fields/displayConditions/showDelay";
-import { ShowOnExitIntent } from "./fields/displayConditions/showOnExitIntent";
+import {
+  HideAfterActionCancelHideCount,
+  HideAfterActionCancelHideDuration,
+  HideAfterActionClosedHideCount,
+  HideAfterActionClosedHideDuration,
+  HideAfterActionConfirmHideCount,
+  HideAfterActionConfirmHideDuration,
+} from "./fields/displayConditions/hideAfterAction";
 import {
   ImpressionsGlobalDuration,
   ImpressionsGlobalSession,
@@ -44,52 +41,55 @@ import {
   ImpressionsWidgetSession,
   ImpressionsWidgetTotal,
 } from "./fields/displayConditions/impressions";
-import {
-  HideAfterActionClosedHideCount,
-  HideAfterActionClosedHideDuration,
-  HideAfterActionConfirmHideCount,
-  HideAfterActionConfirmHideDuration,
-  HideAfterActionCancelHideCount,
-  HideAfterActionCancelHideDuration,
-} from "./fields/displayConditions/hideAfterAction";
-import {
-  DateRangeStart,
-  DateRangeEnd,
-  DateRangeIndefinite,
-} from "./fields/displayConditions/dateRange";
+import { PageVisits } from "./fields/displayConditions/pageVisits";
+import { ScrollPercentageToDisplay } from "./fields/displayConditions/scrollPercentageToDisplay";
+import { ShowDelay } from "./fields/displayConditions/showDelay";
+import { ShowOnExitIntent } from "./fields/displayConditions/showOnExitIntent";
 import { URLContains } from "./fields/displayConditions/urlContains";
-import { ConfirmAction } from "./fields/callbacks/confirmAction";
-import { CancelAction } from "./fields/callbacks/cancelAction";
-import { CloseAction } from "./fields/callbacks/closeAction";
-import { OnInit } from "./fields/callbacks/onInit";
-import { OnLoad } from "./fields/callbacks/onLoad";
-import { Audience, AudienceWithOptions } from "./fields/audience";
 import { FormElements } from "./fields/formElements";
-import { TargetMethod } from "./fields/targetMethod";
-import { AttributeRule } from "./fields/attributeRule";
-import {
-  ContentCollection,
-  ContentCollectionWithOptions,
-  ContentVisited,
-  ContentShuffle,
-  ContentDisplayTitle,
-  ContentDisplayImage,
-  ContentDisplayDescription,
-  ContentDisplayDescriptionLimit,
-  ContentRank,
-} from "./fields/recommend";
-import {
-  TargetFlow,
-  TargetFlowVersion,
-  TargetFlowWithOptions,
-  TargetFlowVersionWithOptions,
-  TargetFlowStep,
-  TargetFlowStepWithOptions,
-} from "./fields/targetFlow";
+import { Headline } from "./fields/headline";
+import { Image } from "./fields/image";
+import { Layout, LayoutWithOptions } from "./fields/layout";
+import { Message } from "./fields/msg";
+import { OKLinkNewTab } from "./fields/okLinkNewTab";
+import { OKLinkURL } from "./fields/okLinkURL";
+import { OKMessage } from "./fields/okMessage";
+import { OKShow } from "./fields/okShow";
+import { OKShowLink } from "./fields/okShowLink";
+import { Origin, OriginWithOptions } from "./fields/origin";
 import {
   PersonalizationKey,
   PersonalizationKeyWithOptions,
 } from "./fields/personalizationKeys";
+import { Position, PositionWithOptions } from "./fields/position";
+import { PositionSelector } from "./fields/positionSelector";
+import { PushDown } from "./fields/pushDown";
+import {
+  ContentCollection,
+  ContentCollectionWithOptions,
+  ContentDisplayDescription,
+  ContentDisplayDescriptionLimit,
+  ContentDisplayImage,
+  ContentDisplayTitle,
+  ContentRank,
+  ContentShuffle,
+  ContentVisited,
+} from "./fields/recommend";
+import {
+  TargetFlow,
+  TargetFlowStep,
+  TargetFlowStepWithOptions,
+  TargetFlowVersion,
+  TargetFlowVersionWithOptions,
+  TargetFlowWithOptions,
+} from "./fields/targetFlow";
+import { TargetMethod } from "./fields/targetMethod";
+import { Theme } from "./fields/theme";
+import { Type } from "./fields/type";
+import { WidgetDescription } from "./fields/widgetDescription";
+import { WidgetSlug } from "./fields/widgetSlug";
+import { WidgetStatus } from "./fields/widgetStatus";
+import { WidgetTitle } from "./fields/widgetTitle";
 
 export interface Field {
   id: string;

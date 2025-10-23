@@ -23,12 +23,12 @@ export async function getRecommendation(
   uid: string,
   options: RecommendationOptions,
 ): Promise<Recommendation[]> {
-  let baseURL = `https://api.lytics.io/api/content/recommend/${accountId}/user/_uid/${uid}`;
+  const baseURL = `https://api.lytics.io/api/content/recommend/${accountId}/user/_uid/${uid}`;
   // if (options.segment !== "") {
   //   baseURL = `https://api.lytics.io/api/content/recommend/${accountId}/segment/${options.segment}`;
   // }
 
-  let parts = [];
+  const parts = [];
   // add account id
   if (!accountId) {
     console.error("Account ID is required to generate recommendations.");

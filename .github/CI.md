@@ -7,12 +7,12 @@ This project uses GitHub Actions for continuous integration. The CI workflow run
 The CI workflow (`.github/workflows/ci.yml`) runs the following checks in sequence:
 
 1. **Install dependencies** - `yarn install --frozen-lockfile`
-2. **Test** - `yarn test` - Runs all unit tests (currently 39 tests)
-3. **Build** - `yarn build` - Verifies all packages build successfully
+2. **Lint** - `yarn lint` - Runs Biome linter on all source files
+3. **Type check** - `yarn typecheck` - Runs TypeScript type checking across all packages
+4. **Test** - `yarn test` - Runs all unit tests (currently 39 tests)
+5. **Build** - `yarn build` - Verifies all packages build successfully
 
 All checks must pass before code can be merged to `main`.
-
-> **Note:** Linting and type checking will be added after resolving existing type errors and migrating to Biome.
 
 ## Environment
 - **Node version:** 22.20.0
@@ -23,12 +23,19 @@ All checks must pass before code can be merged to `main`.
 Before pushing your changes, you can run the same checks locally:
 
 ```bash
-# Run all checks
+# Run all checks in sequence
 yarn install --frozen-lockfile
+yarn lint
+yarn typecheck
 yarn test
 yarn build
 
 # Or run them individually as needed
+yarn lint          # Check code quality with Biome
+yarn lint:fix      # Fix auto-fixable linting issues
+yarn typecheck     # Check TypeScript types
+yarn test          # Run unit tests
+yarn build         # Build all packages
 ```
 
 ## Troubleshooting

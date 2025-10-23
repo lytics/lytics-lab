@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
-import { Box, Chip, LinearProgress } from "@mui/material";
 import { CheckCircle } from "@mui/icons-material";
+import { Box, Chip, LinearProgress } from "@mui/material";
+import CodeMirror from "@uiw/react-codemirror";
+import React, { useEffect, useState } from "react";
 
 interface CodeEditorProps {
   value: string;
@@ -26,7 +26,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
     setCodeString(value);
   }, [value]);
 
-  const onInputChange = React.useCallback((val, viewUpdate) => {
+  const onInputChange = React.useCallback((val, _viewUpdate) => {
     setCodeString(val);
     setIsDirty(true);
 
@@ -41,14 +41,14 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
           onChange(val);
           setShowSaveAlert(true);
           setIsDirty(false);
-          const newTimer2 = setTimeout(() => {
+          const _newTimer2 = setTimeout(() => {
             setShowSaveAlert(false);
           }, 1000);
-        } catch (error) {
+        } catch (_error) {
           setProgressColor("error");
           setShowErrorAlert(true);
           setIsDirty(true);
-          const newTimer2 = setTimeout(() => {
+          const _newTimer2 = setTimeout(() => {
             setShowErrorAlert(false);
           }, 1000);
         }

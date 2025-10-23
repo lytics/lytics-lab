@@ -1,5 +1,5 @@
-import { describe, it, expect } from "vitest";
-import { removeEmptyObjects, getValueByDotNotation } from "../objects";
+import { describe, expect, it } from "vitest";
+import { getValueByDotNotation, removeEmptyObjects } from "../objects";
 
 describe("objects utility", () => {
   describe("removeEmptyObjects", () => {

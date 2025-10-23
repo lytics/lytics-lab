@@ -1,5 +1,5 @@
-import React, { ReactNode } from "react";
 import { Box, Stack } from "@mui/material"; // Importing necessary components from Material-UI
+import React, { ReactNode } from "react";
 
 interface ConditionGroupProps {
   label: string;
