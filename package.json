@@ -32,6 +32,9 @@
     "tdd:nx": "nx run-many --target=tdd --output-style=stream",
     "typecheck": "nx run-many --target=typecheck",
     "affected": "nx print-affected --select=projects",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "yarn build && changeset publish",
     "storybook": "NODE_OPTIONS=--openssl-legacy-provider storybook dev -p 6006",
     "build-storybook": "NODE_OPTIONS=--openssl-legacy-provider storybook build",
     "test-storybook": "NODE_OPTIONS=--openssl-legacy-provider storybook dev --smoke-test",
@@ -42,6 +45,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.2.6",
+    "@changesets/cli": "^2.29.7",
     "@codemirror/lang-javascript": "^6.2.2",
     "@codemirror/view": "^6.32.0",
     "@emotion/react": "^11.13.0",
