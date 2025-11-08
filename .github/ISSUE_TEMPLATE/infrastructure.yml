@@ -1,0 +1,132 @@
+name: Infrastructure Enhancement
+description: Propose improvements to CI/CD, tooling, build system, or developer experience
+title: "[Infra]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for proposing an infrastructure improvement! This template is for CI/CD, tooling, build system, and developer experience enhancements.
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: What area does this enhancement affect?
+      options:
+        - CI/CD
+        - Build System
+        - Development Tooling
+        - Dependency Management
+        - Documentation
+        - Testing Infrastructure
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: Brief overview of what you're proposing
+      placeholder: |
+        Currently, there's no automated way to...
+        The build system doesn't support...
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Current State / Problem
+      description: What's the current situation? What problems exist?
+      placeholder: |
+        Currently, [process] requires manual intervention...
+        Contributors struggle with...
+        The workflow fails when...
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: How would you solve this problem?
+      placeholder: |
+        Integrate [tool] to automate...
+        Update the workflow to...
+        Add [configuration] for...
+    validations:
+      required: true
+
+  - type: textarea
+    id: benefits
+    attributes:
+      label: Benefits
+      description: Who benefits and how?
+      placeholder: |
+        - **For contributors:** Simpler workflow, faster feedback
+        - **For maintainers:** Less manual work, better automation
+        - **For users:** More reliable releases, better quality
+    validations:
+      required: false
+
+  - type: textarea
+    id: implementation
+    attributes:
+      label: Implementation Overview
+      description: High-level steps to implement this (optional)
+      placeholder: |
+        1. Install/configure [tool]
+        2. Add workflow file
+        3. Update documentation
+        4. Test with dry-run
+    validations:
+      required: false
+
+  - type: textarea
+    id: tasks
+    attributes:
+      label: Tasks
+      description: Specific checklist of work items (optional)
+      placeholder: |
+        - [ ] Install dependencies
+        - [ ] Create configuration
+        - [ ] Add CI workflow
+        - [ ] Update documentation
+        - [ ] Test implementation
+    validations:
+      required: false
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: What other approaches did you consider? (optional)
+      placeholder: |
+        - Option A: [tool/approach] - rejected because...
+        - Option B: [tool/approach] - more complex setup
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      description: Any other relevant information (links, examples, related issues)
+      placeholder: |
+        - Similar setup in [project]: link
+        - Related discussion: #123
+        - Documentation: https://...
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      description: Are you willing to work on this?
+      options:
+        - label: I'd like to work on this issue
+        - label: I'm available to help review PRs
+
