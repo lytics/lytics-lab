@@ -11,6 +11,9 @@ Lytics Lab
   - [Configuration](#configuration)
     - [.env](#env)
     - [nx-cloud.env](#nx-cloudenv)
+  - [Contributing](#contributing)
+    - [Making Changes](#making-changes)
+    - [Documenting Changes](#documenting-changes)
   - [Iterating](#iterating)
     - [`yarn start`](#yarn-start)
     - [`yarn storybook`](#yarn-storybook)
@@ -60,6 +63,62 @@ To build, run tests, storybook, etc., you may be required to create a local `nx-
 # Authentication Token for Nx Cloud
 NX_CLOUD_ACCESS_TOKEN={VALID_READ_WRITE_TOKEN}
 ```
+
+<hr>
+
+## Contributing
+
+We use [Changesets](https://github.com/changesets/changesets) for version management and automated releases. See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
+
+### Making Changes
+
+1. Create a feature branch
+2. Make your changes
+3. Run quality checks locally:
+   ```sh
+   yarn lint
+   yarn typecheck
+   yarn test
+   yarn build
+   ```
+4. Create a changeset documenting your changes
+5. Open a pull request
+
+### Documenting Changes
+
+When you make user-facing changes, create a changeset:
+
+```sh
+yarn changeset
+```
+
+This will prompt you to:
+- Select which packages changed
+- Choose the version bump type (major/minor/patch)
+- Write a summary of your changes
+
+The changeset will be included in your PR and used to automatically generate changelogs and version bumps when merged.
+
+**Example workflow:**
+```sh
+# Make your changes
+git checkout -b feat/add-new-feature
+
+# Create a changeset
+yarn changeset
+# Select: @lytics/experience-editor
+# Type: minor (for new features)
+# Summary: "Add support for custom themes"
+
+# Commit everything
+git add .
+git commit -m "feat(experience-editor): add custom theme support"
+git push
+```
+
+For more details, see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+<hr>
 
 ## Iterating
 
